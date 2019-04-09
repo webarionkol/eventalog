@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="color:#fff !important" >User Register</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="back">
+  <!-- <ion-icon (click)=goBack() style="font-size: 26px; padding: 10px;" name="arrow-round-back"> &nbsp;REGISTER</ion-icon> -->
+<div class="login">
+ <!-- <img style="width:80px;display: block;margin: 0 auto;" src="assets/imgs/logo-main.png" /> -->
+            <div class="inputbox">   
+                <ion-item class="animated slideInLeft">        
+                  <ion-label stacked> First Name</ion-label>
+                  <ion-input type="text" [(ngModel)]="fname" placeholder="First Name" ></ion-input>
+                </ion-item>
+                <ion-item class="animated slideInLeft">        
+                  <ion-label stacked> Last Name</ion-label>
+                  <ion-input type="text" [(ngModel)]="lname" placeholder="Last Name" ></ion-input>
+                </ion-item>
+                <ion-item class="animated slideInLeft">        
+                  <ion-label stacked> Mobile</ion-label>
+                  <ion-input type="tel" [(ngModel)]="mobile" placeholder="Mobile Number" ></ion-input>
+                </ion-item>   
+                <ion-item class="animated slideInLeft">        
+                  <ion-label stacked>Password</ion-label>
+                  <ion-input type="password" [(ngModel)]="pass" placeholder="password"></ion-input>
+                </ion-item>
+                <ion-item class="animated slideInLeft">        
+                  <ion-label stacked>Confirm Password</ion-label>
+                  <ion-input type="password" [(ngModel)]="cpass" placeholder=" Confirm Password"></ion-input>
+                </ion-item>
+              </div>
+              <button ion-button  class="button_wel" (click)="registration()" >Submit</button>
+</div>
+</ion-content>

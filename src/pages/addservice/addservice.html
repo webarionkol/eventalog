@@ -1,0 +1,77 @@
+<!--
+  Generated template for the AddservicePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<h5 text-center>WE NEED YOUR PERSONAL DETAILS</h5>
+
+<ion-list>
+
+    <ion-item>
+      <ion-label floating>Conpany Name</ion-label>
+      <ion-input type="text" [(ngModel)]="cname"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+        <ion-label floating>Company Description</ion-label>
+        <ion-input type="text" [(ngModel)]="cdesc"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Company Website</ion-label>
+        <ion-input type="text" [(ngModel)]="cwebsite"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Service Timing</ion-label>
+        <ion-input type="text" [(ngModel)]="ctime"></ion-input>
+    </ion-item>
+  
+  
+
+  <ion-item>
+    <ion-label>Service State</ion-label>
+    <select-searchable
+        item-content
+        [(ngModel)]="stateid"
+        [items]="statearr"
+        itemValueField="id"
+        itemTextField="state"
+        [canSearch]="true"
+        (onChange)="stateSelete($event)">
+    </select-searchable>
+</ion-item>
+
+<ion-item>
+  <ion-label>Service City</ion-label>
+  <select-searchable
+      item-content
+      [(ngModel)]="cityid"
+      [items]="cityarr"
+      itemValueField="id"
+      itemTextField="city"
+      [canSearch]="true">
+    
+  </select-searchable>
+</ion-item>
+    <ion-item>
+      <ion-label floating>Pincode/Zip Code</ion-label>
+      <ion-input type="text" [(ngModel)]="cloc"></ion-input>
+  </ion-item>
+
+  </ion-list>
+
+
+
+  <button ion-button class="button_SEND" (click)="send()" *ngIf="!cname">Submit</button>
+  <button ion-button class="button_SEND" (click)="update()" *ngIf="cname">Update</button>
+
+</ion-content>

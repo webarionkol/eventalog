@@ -1,0 +1,56 @@
+<!--
+  Generated template for the MybookingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Dairy</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="SCARCH()">
+        <ion-icon name="md-search"></ion-icon>
+
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>BOOKING BY</ion-label>
+    <ion-input type="text" [(ngModel)]="hire"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>SERVICE PUROOSE</ion-label>
+    <ion-input type="text" [(ngModel)]="sp"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>BOOKING DATE</ion-label>
+    <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="dateget"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>PLACE </ion-label>
+    <ion-input type="text" [(ngModel)]="place"></ion-input>
+  </ion-item>
+
+  <div text-center margin>
+    <ion-row  >
+      <ion-col col-6 >
+          <button ion-button class="button_wel" (click)="reset()" *ngIf="!idget" [disabled]="buttontext!='Approve'">Submit</button>
+          <button ion-button class="button_wel" (click)="update()" *ngIf="idget" [disabled]="buttontext!='Approve'">Update</button>
+        </ion-col>
+
+      <ion-col col-6>
+          <button ion-button class="button_wel" (click)="list()" [disabled]="buttontext!='Approve'">List</button>
+        </ion-col>
+    </ion-row>
+    
+    <p no-margin style="color:rgb(156, 24, 24)">Make payment to access Dairy</p>
+  </div>
+
+
+</ion-content>

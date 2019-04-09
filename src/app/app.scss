@@ -14,3 +14,30 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+.toolbar-background-md {
+    border-color: #fdfdfd;
+    //background-image: url("/assets/imgs/bottom bar.png");  
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background: linear-gradient(to right, rgba(11, 25, 104, 1) 0%, rgba(0, 201, 249, 1) 49%, rgba(11, 25, 104, 1) 100%);
+}
+.toolbar-title-md {
+    padding: 0 12px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+.scroll-content{
+    background-image: url("/assets/imgs/background.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
+    color:white;
+}
+.item-md{
+    background-color: transparent;
+  }

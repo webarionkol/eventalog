@@ -1,0 +1,89 @@
+page-pastwork {
+ .button_wel{
+        background: transparent;
+        margin: 40px auto;
+        color: #1a8fd8;
+        font-weight: 600;
+        border-radius: 5px;
+        display: block;
+        border: 2px solid #fff;
+        padding: 25px;
+        font-size: 18px;
+    }
+    .toolbar-title-md {
+        padding: 0 12px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #ffffff;
+    }
+    .doc-left{
+        margin: 10px;
+        text-align: center;
+        background: #fff;
+        height: 150px;
+        border-radius: 10px;
+    }
+    img{
+        height: 100%;
+    }
+    label{
+        width: 228px;
+        background: transparent;
+        margin: 40px auto;
+        color: #1a8fd8;
+        font-weight: 600;
+        border-radius: 5px;
+        display: block;
+        border: 2px solid #fff;
+        padding: 25px;
+        font-size: 18px;
+        text-align: center;
+         }
+    
+    
+    
+    input[type="file"] {
+        display: none;
+    }
+    .input-cover{
+        border: 1px solid gray;
+    }
+
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+      }
+
+      .top-right-waiting{
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        color:  #FFF305;
+        font-size: 19px;
+      }
+    
+      .top-right-reg{
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        color: rgb(194, 19, 19);
+        font-size: 19px;
+      }
+      .top-right-app{
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        color: rgb(103, 218, 27);
+        font-size: 19px;
+      }
+      img{
+          height: 100px;
+      }
+      #te{
+          text-align: center;
+          color:white;
+          background-color: rgba(0, 0, 0, 0.548);
+          margin:0px;
+      }
+}

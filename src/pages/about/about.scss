@@ -1,0 +1,19 @@
+page-about {
+    ion-textarea {
+        margin-top: 30%;
+        border: 1px rgb(50, 49, 143) solid;
+        height: 200px;
+    }
+    .button_SEND{
+        background:transparent;
+        margin: 40px auto;
+        color: #4d84c1;
+        font-weight: 600;
+        border-radius: 5px;
+        text-align: center;
+        display: inherit;
+        font-size: 20px;
+        padding: 20px;
+        border: 2px solid #fff;
+    }
+}

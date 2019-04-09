@@ -1,0 +1,38 @@
+page-userprofile {
+    p{
+        font-family: Arial, Helvetica, sans-serif;
+        margin-top: 2px !important;
+        margin-bottom: 5px;
+    }
+    h3{
+        font-family: "Times New Roman", Times, serif;
+        margin-bottom: 2px;
+    }
+
+
+
+   ul {
+    text-align: center;
+    padding: 0px;
+    margin-top: 5% !important;
+    &.rating li {
+      padding: 4px 0px !important;
+      background: none;
+      color: #535049;
+   
+      ion-icon {
+
+        font-size: 17px;
+      }
+    }
+  }
+  .rating{
+    margin: 0px;
+}
+.profileinfo{
+    border-bottom: #928f89 1px solid;
+}
+.gallery{
+    margin-top: 15px;
+}
+}

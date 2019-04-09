@@ -1,0 +1,49 @@
+<!--
+  Generated template for the IdentityVerificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Past Work</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <h5 style="text-align:center;color:#565252">Upload your past work </h5>      
+<P style="text-align:center;color:#2e2e2e;margin-top:25%">Image must have .jpg</P>
+  <!-- <button ion-button class="button_wel" (click)="submit()">Upload Documents</button> -->
+ <div padding>
+  <ion-input placeholder="Enter Remarks" type="text" [(ngModel)]="inputvalue"></ion-input>
+ 
+ </div>
+  
+ 
+  <label id="#bb"> Upload Documents
+    <input type="file" id="File"   size="60" (change)="uploadFile($event)">
+  </label> 
+ 
+ 
+  <!-- <input type="file" class="custom-file-input" (change)="uploadFile($event)" > -->
+  <!-- <label class="file">
+    <input type="file" id="file" aria-label="File browser example" (change)="uploadFile($event)" >
+    <span class="file-custom"></span>
+  </label> -->
+
+  <!-- <input type="file" (change)="uploadFile($event)" class="custom-file-input"> -->
+  <ion-row>
+    <ion-col col-4 *ngFor="let item of pastworklist">
+        
+          <img src="http://{{item.imagePath}}">
+          <!-- <ion-icon name="ios-copy" class="top-right-waiting" *ngIf="item.isApproved=='0' && item.isRejected=='0'"></ion-icon>
+         
+          <ion-icon name="ios-copy" class="top-right-reg" *ngIf="item.isApproved=='0' && item.isRejected=='1'"></ion-icon>
+         
+          <ion-icon name="ios-ribbon" class="top-right-app" *ngIf="item.isApproved=='1' && item.isRejected=='0'"></ion-icon>
+          -->
+       <p id="te">{{item.remarks}}</p>
+    </ion-col>
+
+  </ion-row>
+</ion-content>

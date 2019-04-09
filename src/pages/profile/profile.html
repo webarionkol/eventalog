@@ -1,0 +1,67 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showPrompt()">
+        <ion-icon name="ios-exit-outline"></ion-icon>
+
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="head">
+    <div class="timeline">
+      <img src={{cover}} onError="this.src='assets/imgs/cover.jpg';" />
+      <input type="file" name="myfile" style="height:150px" (change)="uploadcover($event)" />
+    </div>
+
+
+    <div class="upload-btn-wrapper">
+      <img src={{image}} onError="this.src='assets/imgs/profile.jpg';">
+      <!-- <button class="btn"> <ion-icon name="add-circle"></ion-icon></button> -->
+      <input type="file" name="myfile" style="height:100px" (change)="uploadFile($event)" />
+      <!-- <img src="assets/imgs/pencil-edit-button.svg"/>  -->
+     
+     <div text-center class="dataget">
+      <p >{{name}}</p>
+      <p>{{mobileNo}}</p>
+     </div>
+   
+
+    </div>
+
+
+  </div>
+  <div class="main-section">
+    <button ion-button full class="button_wel" (click)="identityVerification()"><span class="spn">1</span>DOCUMENTS
+      VERIFICATION
+      <ion-icon *ngIf="approveCheck=='2'" id="btrn" name="ios-checkmark-circle" item-end></ion-icon>
+    </button>
+    <!-- <button ion-button full class="button_wel" (click)="additionalService()"><span class="spn">2</span>ADDITIONAL SERVICE INFORMATION</button> -->
+    <button ion-button full class="button_wel" (click)="wordDetails()"><span class="spn">2</span>PAST WORK DETAILS
+      <ion-icon *ngIf="approveCheck=='2'" id="btrn" name="ios-checkmark-circle" item-end></ion-icon>
+    </button>
+    <button ion-button full class="button_wel" (click)="addServiceLocation()"><span class="spn">3</span>
+      ADD YOUR SERVICE LOCATION
+      <ion-icon *ngIf="approveCheck=='2'" id="btrn" name="ios-checkmark-circle" item-end></ion-icon>
+    </button>
+    <button ion-button full class="button_wel" (click)="about()"><span class="spn">4</span>ABOUT ME
+      <ion-icon *ngIf="approveCheck=='2'" id="btrn" name="ios-checkmark-circle" item-end></ion-icon>
+    </button>
+    <button ion-button full class="button_wel" (click)="aboutinfo()"><span class="spn">5</span>ADDITIONAL INFORMATION
+    
+      <ion-icon *ngIf="approveCheck=='2'" id="btrn" name="ios-checkmark-circle" item-end></ion-icon>
+    </button>
+    <!-- <button ion-button class="button_SEND" (click)="payd()">Make Payment</button> -->
+    <button ion-button class="button_SEND" (click)="send()" [disabled]="buttontext!='Send for approval' && buttontext!='Resend for approval'">{{buttontext}}</button>
+    <p id="idres" text-center *ngIf="rejectedResone">{{rejectedResone}}</p>
+  </div>
+</ion-content>
