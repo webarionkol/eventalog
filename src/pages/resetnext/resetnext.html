@@ -1,0 +1,36 @@
+<!--
+  Generated template for the ResetnextPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>resetnext</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-content padding>
+    <ion-item >        
+      <ion-label stacked>Mobile Number <span style="color:red">*</span></ion-label>
+      <ion-input type="tel" [(ngModel)]="mobileNo" disabled placeholder="Mobile Number" ></ion-input>
+    </ion-item>
+    <ion-item >        
+      <ion-label stacked>OTP<span style="color:red">*</span></ion-label>
+      <ion-input type="tel" [(ngModel)]="otp" placeholder="OTP" ></ion-input>
+    </ion-item>
+  
+    <ion-item >        
+      <ion-label stacked>Password<span style="color:red">*</span></ion-label>
+      <ion-input type="password" [(ngModel)]="Password" placeholder="Password" ></ion-input>
+    </ion-item>
+
+    <ion-item >        
+      <ion-label stacked>Password<span style="color:red">*</span></ion-label>
+      <ion-input type="password" [(ngModel)]="ConfirmPassword" placeholder="Confirm Password" ></ion-input>
+    </ion-item>
+   
+    <button ion-button class="button_wel" (click)="submit()">Submit</button>
+  </ion-content>
+</ion-content>

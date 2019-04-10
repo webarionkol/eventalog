@@ -1,0 +1,57 @@
+<!--
+  Generated template for the IdentityVerificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <h5 style="text-align:center;color:#565252">WE NEED YOUR IDENTITY VERIFICATION</h5>
+  <P style="text-align:center;color:#2e2e2e;margin-top:25%">Identity Proof(Voter id, pan, Driver's license)</P>
+  <ion-item>
+    <ion-label>Documents Type</ion-label>
+    <select-searchable
+        item-content
+        [(ngModel)]="port"
+        [items]="ports"
+        itemValueField="id"
+        itemTextField="documentTypeName"
+        [canSearch]="true"
+        (onChange)="portChange($event)">
+    </select-searchable>
+</ion-item>
+
+  <div class="upload-btn-wrapper">
+    <button class="btn">Upload a file</button>
+    <input type="file" name="myfile" (change)="uploadFile($event)" />
+  </div>
+
+
+  <ion-row>
+    <ion-col col-12 *ngFor="let item of docList" class="imageget">
+      <div class="container" *ngIf="item.isApproved=='0' && item.isRejected=='0'">
+        <img  src="http://{{item.imagePath}}">
+        <ion-icon name="ios-copy" class="top-right-waiting"></ion-icon>
+      </div>
+
+      <div class="container" *ngIf="item.isApproved=='0' && item.isRejected=='1'">
+        <img  src="http://{{item.imagePath}}">
+        <ion-icon name="ios-copy" class="top-right-reg"></ion-icon>
+        <p>{{item.rejectedResone}}</p>
+      </div>
+      <div class="container" *ngIf="item.isApproved=='1' && item.isRejected=='0'">
+        <img  src="http://{{item.imagePath}}">
+        <ion-icon name="ios-ribbon" class="top-right-app"></ion-icon>
+      </div>
+         <p>{{item.documentType}}</p>
+
+    
+    </ion-col>
+
+  </ion-row>
+</ion-content>

@@ -1,0 +1,44 @@
+page-otp {
+    .scroll-content{
+        background-image: url("/assets/imgs/background.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        padding-bottom: 0px !important;
+    }
+    .item-md.item-block .item-inner {
+        padding-right: 8px;
+        border-bottom: 1px solid #0e2874;
+    }
+    .label-md[stacked], .label-md[floating] {
+        color: #114188;
+    } 
+    .item-md {
+        padding-left: 16px;
+        padding-right: 0;
+        position: relative;
+        font-size: 1.6rem;
+        font-weight: normal;
+        text-transform: none;
+        color: #000;
+        background-color: #fff0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 15px;
+    }
+    .button_wel{
+        background: transparent;
+        margin: 40px auto;
+        color: #1a8fd8;
+        font-weight: 600;
+        border-radius: 5px;
+        display: block;
+    }
+    .toolbar-title-md {
+        padding: 0 12px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #ffffff;
+    }
+}
