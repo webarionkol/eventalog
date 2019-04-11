@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController,App } from 'ionic-angular';
 import { IdentityVerificationPage } from '../identity-verification/identity-verification';
 import { AdditionlServicePage } from '../additionl-service/additionl-service';
 import { ServiceLocationPage } from '../service-location/service-location';
@@ -7,9 +7,6 @@ import { AboutPage } from '../about/about';
 import { PastworkPage } from '../pastwork/pastwork';
 import { ApiProvider } from '../../providers/api/api';
 import { AddservicePage } from '../addservice/addservice';
-
-
-
 import { ToastController, LoadingController } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { LoginPage } from '../login/login';
@@ -43,7 +40,7 @@ export class ProfilePage {
   rejectedOn: any;
   mobileNo: any;
   approveCheck : any;
-  constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public navCtrl: NavController, private http: HttpClient, public rest: ApiProvider, public navParams: NavParams) {
+  constructor(public app:App,public alertCtrl: AlertController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public navCtrl: NavController, private http: HttpClient, public rest: ApiProvider, public navParams: NavParams) {
     this.UserData = JSON.parse(localStorage.getItem('userdata'));
     this.accessToken = this.UserData.access_token;
     this.token_type = this.UserData.token_type;
@@ -76,6 +73,11 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
     this.rest.getUserByid(this.userId).subscribe(res => {
       console.log(res)
       if (res.coverPicturePath) {
@@ -93,6 +95,7 @@ export class ProfilePage {
       this.name = res.name;
       this.mobileNo=res.mobileNo
       console.log(this.name)
+      loading.dismiss();
     })
   }
   identityVerification() {
@@ -118,8 +121,7 @@ export class ProfilePage {
       description: 'Credits towards consultation',
       image: 'https://s3.ap-south-1.amazonaws.com/boost-content-cdn/CustomPages/Images/1d76ef9a.png',
       currency: 'INR',
-      // key: 'rzp_live_TiHLnwF3zf3vJs',
-      key:'rzp_test_K5VtTZHke8Z8Kf',
+      key: 'rzp_live_TiHLnwF3zf3vJs',
       amount: 999 * 100,
       name: 'Eventalog',
       prefill: {
@@ -375,7 +377,8 @@ approvecheck(){
         {
           text: 'Yes',
           handler: data => {
-            this.navCtrl.setRoot(WelcomePage);
+            this.app.getRootNav().setRoot(WelcomePage);
+            // this.navCtrl.setRoot(WelcomePage);
             localStorage.clear();
             console.log('Saved clicked');
           }

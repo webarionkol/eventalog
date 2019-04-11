@@ -34,7 +34,7 @@ import { SelectSearchableModule } from 'ionic-select-searchable';
 import { ResetPage } from '../pages/reset/reset';
 import { ResetnextPage } from '../pages/resetnext/resetnext';
 
-
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
@@ -101,7 +101,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     StatusBar,
     Geolocation,
     SplashScreen,
- 
+    SocialSharing,
     ApiProvider,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

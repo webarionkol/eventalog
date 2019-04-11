@@ -25,8 +25,6 @@ export class WelcomePage {
     console.log('ionViewDidLoad WelcomePage');
   }
   register_user(){
-    // this.navCtrl.push(SubcatagoryPage)
-
     this.navCtrl.push(UserRegPage)
   }
   register_partner(){
