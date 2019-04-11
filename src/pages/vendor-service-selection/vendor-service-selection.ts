@@ -45,7 +45,7 @@ export class VendorServiceSelectionPage {
 submit(){
   console.log(this.id)
   let item=[{
-    "productCategoryId": this.id,
+    "productCategoryId": this.id.id,
     "userId": this.userId,
     "isDefault": 1
   }]

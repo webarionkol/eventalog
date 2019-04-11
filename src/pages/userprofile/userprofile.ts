@@ -14,8 +14,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'userprofile.html',
 })
 export class UserprofilePage {
-
+  pass : any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  this.pass=this.navParams.get('pass');
   }
 
   ionViewDidLoad() {

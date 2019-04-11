@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserprofilePage } from '../userprofile/userprofile';
+import { ThrowStmt } from '@angular/compiler';
 
 /**
  * Generated class for the ListmainPage page.
@@ -16,14 +17,17 @@ import { UserprofilePage } from '../userprofile/userprofile';
 })
 export class ListmainPage {
   rate: any;
+  dataget : any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   this.rate=4;
+  this.dataget=this.navParams.get("data");
+  console.log(this.dataget)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListmainPage');
   }
-  Next(){
-    this.navCtrl.push(UserprofilePage)
+  Next(item){
+    this.navCtrl.push(UserprofilePage,{pass:item})
   }
 }

@@ -27,7 +27,7 @@ export class MyApp {
             this.rest.getUserByid(this.UserData.userId).subscribe(data=>{
               console.log(data.productCategoryId)
               if(data.productCategoryId>0){
-                 this.rootPage=SubcatagoryPage; 
+                 this.rootPage=TabsPage; 
                }
                else{
                 this.rootPage=VendorServiceSelectionPage;

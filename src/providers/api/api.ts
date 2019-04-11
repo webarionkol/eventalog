@@ -317,6 +317,18 @@ patnerdiry(data): Observable<any>{
   return this.http.get(this.apiUrl+'/api/PartnerDiary/GetAllByUserId/'+data,{headers});
 
 }
+
+patnerWiseProduct(data): Observable<any>{
+  console.log(data)
+  let headers = new HttpHeaders({
+    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
+      'Content-Type':'application/json',
+    
+   
+  });
+  return this.http.get(this.apiUrl+'api/PartnerWiseProduct/GetAllByProductId/'+data,{headers});
+
+}
 patnerdirydate(data,bookingDate): Observable<any>{
   console.log(data)
   console.log(bookingDate)

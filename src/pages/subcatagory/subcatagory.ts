@@ -48,11 +48,15 @@ export class SubcatagoryPage {
   }
   next(item){
     console.log(item)
-    // this.navCtrl.push(ListmainPage)
+     this.rest.patnerWiseProduct(item.id).subscribe(Data=>{
+       console.log(Data)
+       this.navCtrl.push(ListmainPage,{data:Data})
+     })
+     
   }
 
   filterItems1() {
-    this.filterItems = this.listService.filter(item => item.category.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
+    this.filterItems = this.listService.filter(item => (item.category).toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
   }
   showPrompt() {
     const prompt = this.alertCtrl.create({

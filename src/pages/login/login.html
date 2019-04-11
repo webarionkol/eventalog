@@ -13,12 +13,12 @@
 <ion-content padding>
   <ion-item class="animated slideInLeft">        
     <ion-label stacked>Mobile Number</ion-label>
-    <ion-input type="tel" [(ngModel)]="mobile" placeholder="Mobile Number" ></ion-input>
+    <ion-input type="tel" [(ngModel)]="mobile" value="9748843339" placeholder="Mobile Number" ></ion-input>
   </ion-item>
 
   <ion-item class="animated slideInLeft">        
     <ion-label stacked>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="password" placeholder="Password" ></ion-input>
+    <ion-input type="password" [(ngModel)]="password" value="123456" placeholder="Password" ></ion-input>
   </ion-item>
   <p text-center (click)="forgot()">Forgot Password?<u>Click here</u></p>
   <button ion-button class="button_wel" (click)="login()">LOGIN</button>

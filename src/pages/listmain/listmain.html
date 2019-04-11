@@ -13,13 +13,13 @@
 <ion-content padding>
 
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-    <ion-list no-lines (click)="Next()">
-        <ion-item>
+    <ion-list no-lines (click)="Next(item)">
+        <ion-item *ngFor="let item of dataget">
           <ion-avatar item-start>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQftq99RH5xXb7aHX-LSErSz8dlHQqsS7CFoe8fb7Yg25eNQEuX">
+            <img src="https://{{item.profilePicturePath}}">
           </ion-avatar>
-          <h2>WEDDING PHOTOGRAPLY</h2>
-          <p>RANAGHAT NADIA</p>
+          <h2>{{item.productCategoryName}}</h2>
+          <p>{{item.state}}</p>
             <rating [(ngModel)]="rate" 
           readOnly="false" 
           max="5" 
@@ -28,35 +28,18 @@
           starIconName="star" 
           nullable="false" 
           (ngModelChange)="onModelChange($event)"></rating>
+         
           <button ion-button icon-only clear item-end>
+              <a href="tel:{{item.mobileNo}}" class="nodecor">
               <ion-icon name="ios-call" color="light"></ion-icon>
+            </a>
           </button>
+         
           <button ion-button icon-only clear item-end>
               <ion-icon name="ios-chatbubbles" color="light"></ion-icon>
           </button>
         </ion-item>
 
 
-        <ion-item>
-            <ion-avatar item-start>
-              <img src="https://s3.scoopwhoop.com/anj/sw/6dd9ac87-0584-4af6-ad6b-ea23adc621b0.jpg">
-            </ion-avatar>
-            <h2>WEDDING PHOTOGRAPLY</h2>
-            <p>RANAGHAT NADIA</p>
-              <rating [(ngModel)]="rate" 
-            readOnly="false" 
-            max="5" 
-            emptyStarIconName="star-outline" 
-            halfStarIconName="star-half" 
-            starIconName="star" 
-            nullable="false" 
-            (ngModelChange)="onModelChange($event)"></rating>
-            <button ion-button icon-only clear item-end>
-                <ion-icon name="ios-call" color="light"></ion-icon>
-            </button>
-            <button ion-button icon-only clear item-end>
-                <ion-icon name="ios-chatbubbles" color="light"></ion-icon>
-            </button>
-          </ion-item>
       </ion-list>
 </ion-content>

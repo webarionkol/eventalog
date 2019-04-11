@@ -118,8 +118,8 @@ export class ProfilePage {
       description: 'Credits towards consultation',
       image: 'https://s3.ap-south-1.amazonaws.com/boost-content-cdn/CustomPages/Images/1d76ef9a.png',
       currency: 'INR',
-      key: 'rzp_live_TiHLnwF3zf3vJs',
-      // key:'rzp_test_K5VtTZHke8Z8Kf',
+      // key: 'rzp_live_TiHLnwF3zf3vJs',
+      key:'rzp_test_K5VtTZHke8Z8Kf',
       amount: 999 * 100,
       name: 'Eventalog',
       prefill: {
@@ -132,13 +132,7 @@ export class ProfilePage {
       },
       modal: {
         ondismiss: function () {
-          let toast = this.toastCtrl.create({
-            message: "dismissed",
-            duration: 3000,
-            position: 'bottom'
-          });
-          toast.present();
-    
+          alert('dismissed')
         }
       }
     };
@@ -147,14 +141,7 @@ export class ProfilePage {
 
 
     var cancelCallback = function (error) {
-
-      let toast = this.toastCtrl.create({
-        message: error.description + ' (Error ' + error.code + ')',
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.present();
-     
+      alert(error.description + ' (Error ' + error.code + ')');
     };
 
     RazorpayCheckout.on('payment.success', (success) =>{
@@ -165,8 +152,9 @@ export class ProfilePage {
       });
       toast.present();
 
-        localStorage.setItem("paymentid",success.razorpay_payment_id)
-
+      // alert('payment_id: ' + success.razorpay_payment_id)
+      localStorage.setItem("paymentid",success.razorpay_payment_id)
+      // al÷ert('payment_id: ' + success.razorpay_payment_id)
       var orderId = success.razorpay_order_id
       var signature = success.razorpay_signature
       this.apiCall()
@@ -259,7 +247,8 @@ approvecheck(){
           position: 'bottom'
         });
         toast.present();
-     
+        // alert("Registration Successfull")
+       
         this.approvecheck();
       }, (err) => {
 
@@ -270,6 +259,7 @@ approvecheck(){
           position: 'bottom'
         });
         toast.present();
+        // alert(JSON.stringify(err.error.message))
       })
     }
 

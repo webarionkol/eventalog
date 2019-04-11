@@ -15,10 +15,17 @@
 
   <ion-item no-lines>
     <ion-label>SERVICE</ion-label>
-    <ion-select   [(ngModel)]="id" placeholder="Select SERVICE">
-      <ion-option *ngFor="let item of listService" value="{{item.id}}">{{item.category}}</ion-option> 
     
-    </ion-select>
+
+    <select-searchable
+    item-content
+    [(ngModel)]="id"
+    [items]="listService"
+    itemValueField="id"
+    itemTextField="category"
+    [canSearch]="true"
+  >
+</select-searchable>
   </ion-item>
 
 
