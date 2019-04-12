@@ -14,12 +14,12 @@
 
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list no-lines >
-        <ion-item *ngFor="let item of dataget" (click)="Next(item)">
-          <ion-avatar item-start>
+        <ion-item *ngFor="let item of dataget" >
+          <ion-avatar item-start (click)="Next(item)">
             <img src="http://{{item.profilePicturePath}}">
           </ion-avatar>
-          <h2>{{item.productCategoryName}}</h2>
-          <p>{{item.state}}</p>
+          <h2 (click)="Next(item)">{{item.name}}</h2>
+          <p (click)="Next(item)">{{item.state}}</p>
             <rating [(ngModel)]="rate" 
           readOnly="false" 
           max="5" 
@@ -27,7 +27,7 @@
           halfStarIconName="star-half" 
           starIconName="star" 
           nullable="false" 
-          (ngModelChange)="onModelChange($event)"></rating>
+          (click)="Next(item)"></rating>
          
           <button ion-button icon-only clear item-end>
               <a href="tel:{{item.mobileNo}}" class="nodecor">
