@@ -11,6 +11,7 @@ import { ToastController, LoadingController } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { LoginPage } from '../login/login';
 import { WelcomePage } from '../welcome/welcome';
+import { NotificationPage } from '../notification/notification';
 
 /**
  * Generated class for the ProfilePage page.
@@ -40,6 +41,7 @@ export class ProfilePage {
   rejectedOn: any;
   mobileNo: any;
   approveCheck : any;
+  payAmmount: any="999";
   constructor(public app:App,public alertCtrl: AlertController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public navCtrl: NavController, private http: HttpClient, public rest: ApiProvider, public navParams: NavParams) {
     this.UserData = JSON.parse(localStorage.getItem('userdata'));
     this.accessToken = this.UserData.access_token;
@@ -121,8 +123,9 @@ export class ProfilePage {
       description: 'Credits towards consultation',
       image: 'https://s3.ap-south-1.amazonaws.com/boost-content-cdn/CustomPages/Images/1d76ef9a.png',
       currency: 'INR',
-      key: 'rzp_live_TiHLnwF3zf3vJs',
-      amount: 999 * 100,
+      // key: 'rzp_live_TiHLnwF3zf3vJs',    
+      key: 'rzp_test_1DP5mmOlF5G5ag',
+      amount: this.payAmmount * 100,
       name: 'Eventalog',
       prefill: {
         email: 'demo@email.com',
@@ -143,7 +146,13 @@ export class ProfilePage {
 
 
     var cancelCallback = function (error) {
-      alert(error.description + ' (Error ' + error.code + ')');
+      let toast = this.toastCtrl.create({
+        message: 'Payment Error. Please try again later',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      // alert(error.description + ' (Error ' + error.code + ')');
     };
 
     RazorpayCheckout.on('payment.success', (success) =>{
@@ -206,37 +215,46 @@ approvecheck(){
   this.navCtrl.setRoot(this.navCtrl.getActive().component);
 
 }
+
+
+sendapp(){
+  console.log(this.UserData.userId)
+  let usr={
+    "userId":this.UserData.userId
+  }
+  this.rest.checkApproval((this.UserData.userId)).subscribe(data => {
+    console.log(data)
+    if (data.status == true) {
+      this.payd();
+    }
+  }, (err) => {
+
+    const alert = this.alertCtrl.create({
+      title: 'Alert!',
+      subTitle: err.error.message,
+      buttons: ['OK']
+    });
+    alert.present();
+  
+ 
+  }
+)
+}
   send(item) {
+    
     if(this.buttontext=="Waiting for approve"){
       
   
     }
     else if(this.buttontext=="Send for approval"){
-      let usr={
-        "userId":this.UserData.userId
-      }
-      this.rest.checkApproval((this.UserData.userId)).subscribe(data => {
-        console.log(data)
-        if (data.status == true) {
-          this.payd();
-        }
-      }, (err) => {
-        let toast = this.toastCtrl.create({
-          message: JSON.stringify(err.error.message),
-          duration: 3000,
-          position: 'bottom'
-        });
-        toast.present();
-     
-      }
-    )
+      this.showConfirmAlert();
 
     }
     else if(this.buttontext=="Approve"){
       
     }
     else if(this.buttontext=="Resend for approval"){
-      console.log("Hi")
+  
       var usre={
         "userId":this.UserData.userId
       }
@@ -261,16 +279,14 @@ approvecheck(){
           position: 'bottom'
         });
         toast.present();
-        // alert(JSON.stringify(err.error.message))
+       
       })
     }
 
- 
-   
   }
 
   uploadcover(event) {
-    console.log("hi")
+    
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -377,7 +393,7 @@ approvecheck(){
         {
           text: 'Yes',
           handler: data => {
-            this.app.getRootNav().setRoot(WelcomePage);
+            this.app.getRootNav().setRoot(LoginPage);
             // this.navCtrl.setRoot(WelcomePage);
             localStorage.clear();
             console.log('Saved clicked');
@@ -387,6 +403,95 @@ approvecheck(){
     });
     prompt.present();
   }
+  showConfirmAlert() {
+    const confirm = this.alertCtrl.create({
+      title: 'Do you have any promo code?',
+      
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            this.payAmmount="999"
+            this.payd();
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+           this.showConfirm();
 
-
+            console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+showConfirm() {
+  const prompt = this.alertCtrl.create({
+    title: 'Coupon Code',
+    message: "Enter Code Below",
+    inputs: [
+      {
+        name: 'Code',
+        placeholder: 'Ex.AGB765'
+      },
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Save',
+        handler: data => {
+          if(data.Code){
+            console.log(data.Code)
+            this.rest.coupun(data.Code).subscribe(data=>{
+              console.log(data)
+            this.payAmmount=data.price;
+              let toast = this.toastCtrl.create({
+                message: data.message,
+                duration: 3000,
+                position: 'bottom'
+              });
+              toast.present();
+             
+              this.sendapp();
+              
+            },error => {
+              
+               console.log(error)
+    
+            let toast = this.toastCtrl.create({
+              message: error.error.message,
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
+              // alert("failed to upload");
+            }
+            
+            )
+          }
+           else{
+            let toast = this.toastCtrl.create({
+              message: "input not found",
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
+           }
+         
+        }
+      }
+    ]
+  });
+  prompt.present();
+  }
+  noti(){
+    this.navCtrl.push(NotificationPage)
+  }
 }

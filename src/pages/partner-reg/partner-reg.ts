@@ -47,7 +47,7 @@ dataArr:any=[];
         confirmPassword: this.cpass,
         firstName: this.fname,
         lastName: this.lname,
-        mobileNo: "+91"+this.mobile,
+        mobileNo: this.mobile,
               };
   this.api.RegistrationOTP(this.dataArr).subscribe(resp => {
     console.log(resp)

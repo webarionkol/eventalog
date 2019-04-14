@@ -1,0 +1,14 @@
+<!-- <ion-tabs>
+    <ion-tab [root]="notificationuserRoot" tabTitle="Notificationuser" tabIcon="information-circle"></ion-tab>
+    <ion-tab [root]="chatuserRoot" tabTitle="Chatuser" tabIcon="information-circle"></ion-tab>
+    <ion-tab [root]="profileuserRoot" tabTitle="Profileuser" tabIcon="information-circle"></ion-tab>
+    <ion-tab [root]="scarchuserRoot" tabTitle="Scarchuser" tabIcon="information-circle"></ion-tab>
+</ion-tabs> -->
+
+
+<ion-tabs selectedIndex="3">
+    <ion-tab [root]="notificationuserRoot" tabIcon="ios-search" tabsHideOnSubPages="true"></ion-tab>
+    <ion-tab [root]="scarchuserRoot" tabIcon="apps" tabsHideOnSubPages="true"></ion-tab>
+    <ion-tab [root]="chatuserRoot"  tabIcon="ios-book" tabsHideOnSubPages="true"></ion-tab>
+    <ion-tab [root]="profileuserRoot"tabIcon="person" [rootParams]="datapass" tabsHideOnSubPages="true"></ion-tab>
+  </ion-tabs>

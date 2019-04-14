@@ -7,6 +7,7 @@ import { VendorServiceSelectionPage } from '../pages/vendor-service-selection/ve
 import { ApiProvider } from '../providers/api/api';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SubcatagoryPage } from '../pages/subcatagory/subcatagory';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,7 +40,7 @@ export class MyApp {
        
       }
       else{
-        this.rootPage=WelcomePage;
+        this.rootPage=LoginPage;
       }
     statusBar.backgroundColorByHexString('#ffffff'); 
       // Okay, so the platform is ready and our plugins are available.

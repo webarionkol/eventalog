@@ -17,11 +17,20 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 export class ApiProvider {
   apiUrl: any;    
   user:any;
+  usertoke: any;
   constructor(
     public http: HttpClient,
     public toastCtrl: ToastController) {  
     this.apiUrl = 'http://mobile.eventalog.com/';
 
+         if(localStorage.getItem('userdata')){
+          this.user=JSON.parse(localStorage.getItem('userdata'));
+         }else{
+
+         }
+    
+
+   
     
   }
 
@@ -78,8 +87,9 @@ export class ApiProvider {
     });
   }
   getServiceList(data): Observable<any>  {
+    console.log(data[0].token)
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
+      'Authorization':'bearer'+" "+data[0].token,
       'Content-Type':'application/json',
       
      
@@ -89,8 +99,7 @@ export class ApiProvider {
   
   getServiceListSubmit(data): Observable<any>  {
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-       'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
       
      
     });
@@ -98,19 +107,27 @@ export class ApiProvider {
   }
 
   getUserByid(data): Observable<any>  {
+    console.log(data)
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token,
+       'Content-Type':'application/json',
+      
+     
+    });
+    return this.http.get(this.apiUrl+'api/PartnerDetails/GetByUserId/' + "73",{headers});
+  }
+  getUserByids(data,tto): Observable<any>  {
+    let headers = new HttpHeaders({
+      'Authorization':'bearer'+" "+tto,
+       'Content-Type':'application/json',
       
      
     });
     return this.http.get(this.apiUrl+'api/PartnerDetails/GetByUserId/' + data,{headers});
   }
-  
   PartnerAbout(data): Observable<any>  {
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
       
      
     });
@@ -119,8 +136,7 @@ export class ApiProvider {
   approv(data): Observable<any>  {
 
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
 
     });
     return this.http.post(this.apiUrl+'api/PartnerPayment/MakePayment',data,{headers});
@@ -130,8 +146,7 @@ export class ApiProvider {
   adddetiels(data): Observable<any>  {
 
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-        'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
 
     });
     return this.http.post(this.apiUrl+'api/PartnerDetails/Insert',JSON.stringify(data),{headers});
@@ -142,8 +157,7 @@ export class ApiProvider {
   // }
   ServiceLocation(data): Observable<any>  {  
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
 
     });
     return this.http.post(this.apiUrl+'api/PartnerServiceLocation/Insert',JSON.stringify(data),{headers});
@@ -153,8 +167,7 @@ export class ApiProvider {
 
   getAbout(data): Observable<any>  {
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token, 'Content-Type':'application/json',
       
      
     });
@@ -163,8 +176,7 @@ export class ApiProvider {
   patnerDoc(): Observable<any>{
 
     let headers = new HttpHeaders({
-      'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
       
      
     });
@@ -176,8 +188,7 @@ pastWord(data): Observable<any>{
   
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
     
    
   });
@@ -189,8 +200,7 @@ PartnerDocumentByid(data): Observable<any>{
   
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
     
    
   });
@@ -227,8 +237,7 @@ resetSubmit(data): Observable<any>
 resendApprov(data): Observable<any>
 {
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
     
    
   });
@@ -240,8 +249,7 @@ resendApprov(data): Observable<any>
 dairyInsert(data): Observable<any>{
 
   let headers = new HttpHeaders({
-     'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token, 'Content-Type':'application/json',
     
    
   });
@@ -254,8 +262,7 @@ dairyInsert(data): Observable<any>{
 dairyUpdate(data): Observable<any>{
 
   let headers = new HttpHeaders({
-     'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
     
    
   });
@@ -270,8 +277,7 @@ city(data): Observable<any>{
 
 console.log(data)
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
     
    
   });
@@ -285,8 +291,7 @@ StateGet(): Observable<any>{
 
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
     
    
   });
@@ -298,8 +303,7 @@ checkApproval(data): Observable<any>{
 
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
     
    
   });
@@ -309,8 +313,7 @@ checkApproval(data): Observable<any>{
 patnerdiry(data): Observable<any>{
   console.log(data)
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
     
    
   });
@@ -321,8 +324,7 @@ patnerdiry(data): Observable<any>{
 patnerWiseProduct(data): Observable<any>{
   console.log(data)
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
     
    
   });
@@ -333,8 +335,7 @@ patnerdirydate(data,bookingDate): Observable<any>{
   console.log(data)
   console.log(bookingDate)
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
     
    
   });
@@ -363,14 +364,22 @@ userReg(data)
 PartnerPastWork(data): Observable<any>{
  
   let headers = new HttpHeaders({
-    'Authorization':'bearer iH-bI3K6_j2xiXkIynHK4U2s6zrDR4AENNWjq_UUVJ8B3yWUTy_aTF73QLxb0wf1G2L-o24TI-p_eDCDV1aBBwqc-KCxY2PeDqJ1D88sd-yV1RLxyS44ufAOCd0Lo8ibo_Zije0poOVEO2g5M-iNorSsMeuBe90yOEgLb3LBybMfH5Eo8DZ50S7-m6haeFhlYOkXicGFsgPz8apOezWDkSwwcAi156WOCCvKXAzP2urHSqidc-pifTHU40zkH76mIfDkozL5ODkJN7lYqnUo_Z2dCF9Ycmc6z_1OkhirOpe1dDARPnaoEseiUl9RFFBEaImmVTwNc8UfWfJd0L1Zn39CmuI1amNrMJMnK6qT8nvjze3wWHa8Vu6ni_1uXcCR_NSFz-Z4JZ2Yqha5J6yXfQ',
-      'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
     
    
   });
   return this.http.get(this.apiUrl+'/api/PartnerPastWork/GetByUserId/'+data,{headers});
 
 }
+coupun(data):Observable<any>{
+  let headers = new HttpHeaders({
+    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
+    
+   
+  });
+  return this.http.get(this.apiUrl+'/api/ProductCoupon/IsValide/'+data,{headers});
 
+  // APR1504OFFER
+}
 }
 

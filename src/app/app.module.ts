@@ -33,11 +33,13 @@ import { AddservicePage } from '../pages/addservice/addservice';
 import { SelectSearchableModule } from 'ionic-select-searchable';
 import { ResetPage } from '../pages/reset/reset';
 import { ResetnextPage } from '../pages/resetnext/resetnext';
-
+// TabuserprofilePage
+import { TabuserprofilePage } from '../pages/tabuserprofile/tabuserprofile';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
+  
     MyApp,
     HomePage,
     WelcomePage,
@@ -47,6 +49,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     UserprofilePage,
     AddservicePage,
     PastworkPage,
+    TabuserprofilePage,
     LoginPage,
     SubcatagoryPage,
     VendorServiceSelectionPage,
@@ -72,6 +75,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    TabuserprofilePage,
     MyApp,
     AddservicePage,
     HomePage,
@@ -80,7 +84,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     PartnerRegPage,
     ListmainPage,
     UserprofilePage,
+ 
     PastworkPage,
+  
     LoginPage,
     VendorServiceSelectionPage,
     TabsPage,

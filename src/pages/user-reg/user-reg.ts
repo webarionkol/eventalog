@@ -38,7 +38,7 @@ export class UserRegPage {
       "firstName": this.fname,
       "lastName": this.cpass,
      
-      "mobileNo": "+91"+this.mobile,
+      "mobileNo": this.mobile,
       "deviceId": "string",
       "deviceType": "string",
       "operationSystem": "string",

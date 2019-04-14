@@ -18,22 +18,22 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label stacked>BOOKING BY</ion-label>
+    <ion-label stacked>Booking By</ion-label>
     <ion-input type="text" [(ngModel)]="hire"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>SERVICE PUROOSE</ion-label>
+    <ion-label stacked>Service Purpoose</ion-label>
     <ion-input type="text" [(ngModel)]="sp"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>BOOKING DATE</ion-label>
+    <ion-label>Booking Date</ion-label>
     <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="dateget"></ion-datetime>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>PLACE </ion-label>
+    <ion-label stacked>Place </ion-label>
     <ion-input type="text" [(ngModel)]="place"></ion-input>
   </ion-item>
 
@@ -49,7 +49,7 @@
         </ion-col>
     </ion-row>
     
-    <p no-margin style="color:rgb(156, 24, 24)">Make payment first access diary</p>
+    <p no-margin id="idres" *ngIf="buttontext!='Approve'">Make payment to access the diary</p>
   </div>
 
 

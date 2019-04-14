@@ -8,10 +8,16 @@
   <ion-navbar>
     <ion-title>Profile</ion-title>
     <ion-buttons right>
+        <button ion-button icon-only (click)="noti()">
+            <ion-icon name="ios-notifications-outline"></ion-icon>
+    
+          </button>
       <button ion-button icon-only (click)="showPrompt()">
         <ion-icon name="ios-exit-outline"></ion-icon>
 
       </button>
+    
+     
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -25,7 +31,7 @@
 
 
     <div class="upload-btn-wrapper">
-      <img src={{image}} onError="this.src='assets/imgs/profile.jpg';">
+      <img src={{image}} onError="this.src='assets/imgs/profile.png';">
       <!-- <button class="btn"> <ion-icon name="add-circle"></ion-icon></button> -->
       <input type="file" name="myfile" style="height:100px" (change)="uploadFile($event)" />
       <!-- <img src="assets/imgs/pencil-edit-button.svg"/>  -->

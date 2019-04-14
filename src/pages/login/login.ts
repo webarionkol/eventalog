@@ -5,6 +5,7 @@ import { ApiProvider } from '../../providers/api/api';
 import { TabsPage } from '../tabs/tabs';
 import { ResetPage } from '../reset/reset';
 import { SubcatagoryPage } from '../subcatagory/subcatagory';
+import { WelcomePage } from '../welcome/welcome';
 
 /**
  * Generated class for the LoginPage page.
@@ -46,14 +47,14 @@ export class LoginPage {
   
   
       this.rest.token(data).subscribe(data => {
-        console.log(data.userType)
+         console.log(data.access_token)
         if(data.userType=="U"){
           loading.dismiss();
+          
           localStorage.setItem("userdata", JSON.stringify(data))
-    
           if(localStorage.getItem('userdata')){
-            this.rest.getUserByid(data.userId).subscribe(data=>{
-           
+            this.rest.getUserByids(data.userId,data.access_token).subscribe(data=>{
+             
              
                this.navCtrl.setRoot(SubcatagoryPage); 
               
@@ -75,8 +76,8 @@ export class LoginPage {
           localStorage.setItem("userdata", JSON.stringify(data))
     
           if(localStorage.getItem('userdata')){
-            this.rest.getUserByid(data.userId).subscribe(data=>{
-             console.log(data.productCategoryId)
+            this.rest.getUserByids(data.userId,data.access_token).subscribe(data=>{
+            
              if(data.productCategoryId>0){
                this.navCtrl.setRoot(TabsPage); 
               }
@@ -110,8 +111,18 @@ export class LoginPage {
     
     }
     else{
-      alert("Empty 'MobileNo' and 'Password'.")
+
+      let toast = this.toastCtrl.create({
+        message: "Empty MobileNo and Password",
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+    
     }
     
+}
+newacc(){
+  this.navCtrl.push(WelcomePage)
 }
 }

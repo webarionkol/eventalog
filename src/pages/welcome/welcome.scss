@@ -4,7 +4,7 @@ page-welcome {
         font-size: 2rem;
         font-weight: 500;
         color: #fff;
-        text-align: center;
+    
         font-family: "Times New Roman", Times, serif;
     }
     .scroll-content{
@@ -19,5 +19,11 @@ page-welcome {
         font-weight: 600;
         border-radius: 5px;
     }
-  
+    ion-icon {
+      font-size: 200%;
+
+  }
+  .button-md{
+    height: 16.6rem;
+  }
 }

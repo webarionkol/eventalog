@@ -5,6 +5,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import { MybookingPage } from '../mybooking/mybooking';
 import { ChatPage } from '../chat/chat';
 import { ProfilePage } from '../profile/profile';
+import { SubcatagoryPage } from '../subcatagory/subcatagory';
 
 /**
  * Generated class for the TabsPage page.
@@ -23,7 +24,7 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public sanitizer: DomSanitizer,  public modalCtrl: ModalController) {
   }
 
-  notification = NotificationPage;
+  notification = SubcatagoryPage;
   booking = MybookingPage;
   chat = ChatPage;
   profil = ProfilePage;

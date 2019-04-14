@@ -16,6 +16,10 @@ page-mybooking {
         height: 63px;
     border: 1px solid gray;
     }
+
+    .button-md{
+        width: 120px;
+    }
     .button_wel{
         background: transparent;
         margin: 40px auto;
@@ -35,5 +39,12 @@ page-mybooking {
 }
 .label-md{
 font-size: 1.2rem;
+}
+
+#idres{
+    background-color: rgba(223, 33, 33, 0.603);
+    padding: 5px;
+    margin-top:0px !important;
+    color:white;
 }
 }

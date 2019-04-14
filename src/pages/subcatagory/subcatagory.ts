@@ -34,20 +34,32 @@ export class SubcatagoryPage {
     loading.present();
     
     this.UserData=JSON.parse(localStorage.getItem('userdata'));
-     this.accessToken="8jY7s7vCvH_IepMsBJRhAXZ8ZkmJdCmxB1iB3h8kKFYtz7TGNLiQMwtAn37BfaTuZm6vQpJDS1ohWSSWXEA15yltWXEcJfvZoGTu_9IuaDsV6UVfylIGAcuWdZyEF5Lb6rpPwP3yo5R85XsC0TN1qS17kjDe8";
-     this.token_type="this.UserData.token_type";
-     this.userId="2";
-     console.log(this.UserData)
+     this.accessToken=this.UserData.access_token;
+     this.token_type=this.UserData.token_type;
+     this.userId=this.UserData.userId;
+ 
      let dataArr=[
       { "token":this.accessToken,"token_type":this.token_type}
      ]
       this.rest.getServiceList(dataArr).subscribe(data=>{
-     
+      console.log(data)
        this.listService=data;
        this.filterItems=this.listService
         loading.dismiss();
 
-      })
+      },error => {
+              
+        console.log(error)
+
+     let toast = this.toastCtrl.create({
+       message: error.error.message,
+       duration: 3000,
+       position: 'bottom'
+     });
+     toast.present();
+       // alert("failed to upload");
+     }
+      )
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SubcatagoryPage');

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserprofilePage } from '../userprofile/userprofile';
 import { ThrowStmt } from '@angular/compiler';
+import { UserTabPage } from '../user-tab/user-tab';
+import { TabuserprofilePage } from '../tabuserprofile/tabuserprofile';
 
 /**
  * Generated class for the ListmainPage page.
@@ -28,6 +30,6 @@ export class ListmainPage {
     console.log('ionViewDidLoad ListmainPage');
   }
   Next(item){
-    this.navCtrl.push(UserprofilePage,{pass:item})
+    this.navCtrl.push(TabuserprofilePage,{pass:item})
   }
 }

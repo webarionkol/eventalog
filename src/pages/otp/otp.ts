@@ -90,5 +90,7 @@ userData:any;
    
   
   }
-
+  resendotp(){
+    
+  }
 }
