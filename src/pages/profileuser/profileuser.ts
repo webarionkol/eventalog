@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Platform, ViewController, App } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { WelcomePage } from '../welcome/welcome';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { LoginPage } from '../login/login';
+import { SubcatagoryPage } from '../subcatagory/subcatagory';
 /**
  * Generated class for the ProfileuserPage page.
  *
@@ -25,17 +26,17 @@ export class ProfileuserPage {
   name: any;
   partnerDescription:any;
   mobileNo: any;
+  id: number;
+  UserData : any;
+  accessToken : any;
+  constructor(public app:App,public viewCtrl: ViewController,public plat: Platform,public socialSharing:SocialSharing,public alertCtrl: AlertController,public rest:ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+    this.UserData=JSON.parse(localStorage.getItem('userdata'));
+     this.accessToken=this.UserData.access_token;
 
-  constructor(public plat: Platform,public socialSharing:SocialSharing,public alertCtrl: AlertController,public rest:ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+    console.log('Passed params', navParams.data.userId);
 
-  }
 
-  ionViewDidLoad() {
-    this.user=JSON.parse(localStorage.getItem('userdata'));
-  
-    this.rate="4";
-  
-    this.rest.getUserByid(this.user.userId).subscribe(data=>{
+    this.rest.getUserByid(navParams.data.userId,this.accessToken).subscribe(data=>{
       this.pass=data;
       this.coverpic=data.coverPicturePath;
       this.name=data.name
@@ -43,11 +44,23 @@ export class ProfileuserPage {
       this.mobileNo=data.mobileNo;
       console.log(data)
     })
-  this.rest.PartnerPastWork(this.user.userId).subscribe(data=>{
+  this.rest.PartnerPastWork(navParams.data.userId,this.accessToken).subscribe(data=>{
     this.imagelist=data
   // console.log(data)
   })
+  }
+
+  ionViewDidLoad() {
+    this.user=JSON.parse(localStorage.getItem('userdata'));
+  
+    this.rate="4";
+  
+ 
     console.log('ionViewDidLoad UserprofilePage');
+  }
+  public onClickCancel() {
+    this.app.getRootNav().setRoot(SubcatagoryPage);
+    // this.navCtrl.setRoot(SubcatagoryPage);
   }
   showPrompt() {
     const prompt = this.alertCtrl.create({
@@ -64,7 +77,8 @@ export class ProfileuserPage {
         {
           text: 'Yes',
           handler: data => {
-            this.navCtrl.setRoot(LoginPage);
+            this.app.getRootNav().setRoot(LoginPage);
+         
             localStorage.clear();
             console.log('Saved clicked');
           }

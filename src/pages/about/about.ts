@@ -26,7 +26,7 @@ export class AboutPage {
     this.token_type=this.UserData.token_type;
     this.userId=this.UserData.userId;
      
-    this.rest.getAbout(this.userId).subscribe(data=>{
+    this.rest.getAbout(this.userId,this.accessToken).subscribe(data=>{
       this.textin=data.about;
       console.log(data)
     })
@@ -51,7 +51,7 @@ export class AboutPage {
       "userId": this.userId,
       "about": this.textin
    }
-    this.rest.PartnerAbout(data).subscribe(then=>{
+    this.rest.PartnerAbout(data,this.accessToken).subscribe(then=>{
       console.log(then)
       loading.dismiss();
       let toast = this.toastCtrl.create({

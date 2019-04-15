@@ -7,6 +7,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>WEDDING LIST</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showPrompt()">
+        <ion-icon name="ios-exit-outline"></ion-icon>
+
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -36,7 +42,9 @@
           </button>
          
           <button ion-button icon-only clear item-end>
+              <a href="https://api.whatsapp.com/send?phone={{item.mobileNo}}">
               <ion-icon name="ios-chatbubbles" color="light"></ion-icon>
+              </a>
           </button>
         </ion-item>
 

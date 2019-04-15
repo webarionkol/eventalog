@@ -37,12 +37,12 @@ export class IdentityVerificationPage {
 
   ionViewDidLoad() {
     console.log("HI")
-    this.rest.patnerDoc().subscribe(data=>{
+    this.rest.patnerDoc(this.accessToken).subscribe(data=>{
       this.ports=data;
     console.log(this.ports)
     })
 
-    this.rest.PartnerDocumentByid(this.userId).subscribe(data=>{
+    this.rest.PartnerDocumentByid(this.userId,this.accessToken).subscribe(data=>{
      this.docList=data;
      
     })
@@ -80,7 +80,7 @@ export class IdentityVerificationPage {
         ///dddd
        
        
-          this.rest.PartnerDocumentByid(this.userId).subscribe(data=>{
+          this.rest.PartnerDocumentByid(this.userId,this.accessToken).subscribe(data=>{
             this.docList=data;
             this.navCtrl.setRoot(this.navCtrl.getActive().component);
            })

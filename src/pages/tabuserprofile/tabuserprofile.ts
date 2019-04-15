@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { SubcatagoryPage } from '../subcatagory/subcatagory';
 
 /**
  * Generated class for the TabuserprofilePage tabs.
@@ -8,7 +9,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-tabuserprofile',
   templateUrl: 'tabuserprofile.html'
@@ -19,10 +20,18 @@ export class TabuserprofilePage {
   chatuserRoot = 'ChatuserPage'
   profileuserRoot = 'ProfileuserPage'
   scarchuserRoot = 'ScarchuserPage'
-
+  data: any;
   datapass:any;
-  constructor(public navCtrl: NavController,public navParams: NavParams) {
+ 
+ // set some user information on chatParams
+ 
+ chatParams: any = {
   
+};
+  constructor(public viewCtrl:ViewController,public navCtrl: NavController,public navParams: NavParams) {
+    this.chatParams = 
+      this.navParams.get('pass')
+   
   }
 
 }

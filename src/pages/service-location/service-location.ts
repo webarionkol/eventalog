@@ -46,7 +46,7 @@ export class ServiceLocationPage {
           "latitude": pos.coords.latitude
         }
 
-        this.rest.ServiceLocation(data).subscribe(resp => {
+        this.rest.ServiceLocation(data,this.accessToken).subscribe(resp => {
           console.log(resp)
         })
         const toast = this.toastCtrl.create({

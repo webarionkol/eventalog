@@ -16,18 +16,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 @Injectable()  
 export class ApiProvider {
   apiUrl: any;    
-  user:any;
+
   usertoke: any;
   constructor(
     public http: HttpClient,
     public toastCtrl: ToastController) {  
     this.apiUrl = 'http://mobile.eventalog.com/';
 
-         if(localStorage.getItem('userdata')){
-          this.user=JSON.parse(localStorage.getItem('userdata'));
-         }else{
-
-         }
     
 
    
@@ -97,24 +92,24 @@ export class ApiProvider {
     return this.http.get(this.apiUrl+'api/ProductCategory/GetAll',{headers});
   }
   
-  getServiceListSubmit(data): Observable<any>  {
+  getServiceListSubmit(data,token): Observable<any>  {
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+token,  'Content-Type':'application/json',
       
      
     });
     return this.http.post(this.apiUrl+'api/PartnerWiseProduct/Insert',JSON.stringify(data),{headers});
   }
 
-  getUserByid(data): Observable<any>  {
+  getUserByid(data,token): Observable<any>  {
     console.log(data)
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token,
+      'Authorization':'bearer'+" "+token,
        'Content-Type':'application/json',
       
      
     });
-    return this.http.get(this.apiUrl+'api/PartnerDetails/GetByUserId/' + "73",{headers});
+    return this.http.get(this.apiUrl+'api/PartnerDetails/GetByUserId/' + data,{headers});
   }
   getUserByids(data,tto): Observable<any>  {
     let headers = new HttpHeaders({
@@ -125,28 +120,28 @@ export class ApiProvider {
     });
     return this.http.get(this.apiUrl+'api/PartnerDetails/GetByUserId/' + data,{headers});
   }
-  PartnerAbout(data): Observable<any>  {
+  PartnerAbout(data,tokne): Observable<any>  {
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+tokne,  'Content-Type':'application/json',
       
      
     });
     return this.http.post(this.apiUrl+'api/PartnerAbout/Insert',JSON.stringify(data),{headers});
   }
-  approv(data): Observable<any>  {
+  approv(data,token): Observable<any>  {
 
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+token,  'Content-Type':'application/json',
 
     });
     return this.http.post(this.apiUrl+'api/PartnerPayment/MakePayment',data,{headers});
 
   }
 
-  adddetiels(data): Observable<any>  {
+  adddetiels(data,token): Observable<any>  {
 
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+token,   'Content-Type':'application/json',
 
     });
     return this.http.post(this.apiUrl+'api/PartnerDetails/Insert',JSON.stringify(data),{headers});
@@ -155,9 +150,9 @@ export class ApiProvider {
   // getadddetiels(){
   //   http://mobile.eventalog.com/api/PartnerDetails/GetById/1
   // }
-  ServiceLocation(data): Observable<any>  {  
+  ServiceLocation(data,token): Observable<any>  {  
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+token,  'Content-Type':'application/json',
 
     });
     return this.http.post(this.apiUrl+'api/PartnerServiceLocation/Insert',JSON.stringify(data),{headers});
@@ -165,18 +160,18 @@ export class ApiProvider {
     
   }
 
-  getAbout(data): Observable<any>  {
+  getAbout(data,token): Observable<any>  {
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token, 'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+token, 'Content-Type':'application/json',
       
      
     });
     return this.http.get(this.apiUrl+'api/PartnerAbout/GetByUserId/'+data,{headers});
   }
-  patnerDoc(): Observable<any>{
+  patnerDoc(token): Observable<any>{
 
     let headers = new HttpHeaders({
-      'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
+      'Authorization':'bearer'+" "+token,  'Content-Type':'application/json',
       
      
     });
@@ -184,11 +179,11 @@ export class ApiProvider {
   
   
   }
-pastWord(data): Observable<any>{
+pastWord(data,token): Observable<any>{
   
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,  'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,  'Content-Type':'application/json',
     
    
   });
@@ -196,11 +191,11 @@ pastWord(data): Observable<any>{
 
 }
 
-PartnerDocumentByid(data): Observable<any>{
+PartnerDocumentByid(data,token): Observable<any>{
   
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,    'Content-Type':'application/json',
     
    
   });
@@ -234,10 +229,10 @@ resetSubmit(data): Observable<any>
   
 }
 
-resendApprov(data): Observable<any>
+resendApprov(data,token): Observable<any>
 {
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,   'Content-Type':'application/json',
     
    
   });
@@ -246,10 +241,10 @@ resendApprov(data): Observable<any>
 
   
 }
-dairyInsert(data): Observable<any>{
+dairyInsert(data,token): Observable<any>{
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token, 'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token, 'Content-Type':'application/json',
     
    
   });
@@ -259,10 +254,10 @@ dairyInsert(data): Observable<any>{
   
 }
 
-dairyUpdate(data): Observable<any>{
+dairyUpdate(data,token): Observable<any>{
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,    'Content-Type':'application/json',
     
    
   });
@@ -273,11 +268,11 @@ dairyUpdate(data): Observable<any>{
 }
 
 
-city(data): Observable<any>{
+city(data,token): Observable<any>{
 
 console.log(data)
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,   'Content-Type':'application/json',
     
    
   });
@@ -287,11 +282,11 @@ console.log(data)
 
 }
 
-StateGet(): Observable<any>{
+StateGet(token): Observable<any>{
 
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,   'Content-Type':'application/json',
     
    
   });
@@ -299,21 +294,21 @@ StateGet(): Observable<any>{
 
 }
 
-checkApproval(data): Observable<any>{
+checkApproval(data,token): Observable<any>{
 
 
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,   'Content-Type':'application/json',
     
    
   });
   return this.http.get(this.apiUrl+'api/PartnerDetails/CheckApproval/'+data,{headers});
 
 }
-patnerdiry(data): Observable<any>{
+patnerdiry(data,token): Observable<any>{
   console.log(data)
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,    'Content-Type':'application/json',
     
    
   });
@@ -321,21 +316,21 @@ patnerdiry(data): Observable<any>{
 
 }
 
-patnerWiseProduct(data): Observable<any>{
+patnerWiseProduct(data,token): Observable<any>{
   console.log(data)
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,   'Content-Type':'application/json',
     
    
   });
   return this.http.get(this.apiUrl+'api/PartnerWiseProduct/GetAllByProductId/'+data,{headers});
 
 }
-patnerdirydate(data,bookingDate): Observable<any>{
+patnerdirydate(data,bookingDate,token): Observable<any>{
   console.log(data)
   console.log(bookingDate)
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,    'Content-Type':'application/json',
     
    
   });
@@ -361,19 +356,19 @@ userReg(data)
   });
 }
 
-PartnerPastWork(data): Observable<any>{
+PartnerPastWork(data,token): Observable<any>{
  
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,   'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,   'Content-Type':'application/json',
     
    
   });
   return this.http.get(this.apiUrl+'/api/PartnerPastWork/GetByUserId/'+data,{headers});
 
 }
-coupun(data):Observable<any>{
+coupun(data,token):Observable<any>{
   let headers = new HttpHeaders({
-    'Authorization':'bearer'+" "+this.user.access_token,    'Content-Type':'application/json',
+    'Authorization':'bearer'+" "+token,    'Content-Type':'application/json',
     
    
   });

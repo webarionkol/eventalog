@@ -20,7 +20,7 @@ import { IdentityVerificationPage } from '../pages/identity-verification/identit
 import { AdditionlServicePage } from '../pages/additionl-service/additionl-service';
 import { ServiceLocationPage } from '../pages/service-location/service-location';
 import { ListmainPage } from '../pages/listmain/listmain';
-import { UserprofilePage } from '../pages/userprofile/userprofile';
+
 import { AboutPage } from '../pages/about/about';
 import { Geolocation } from '@ionic-native/geolocation';
 import { OtpPage } from '../pages/otp/otp';
@@ -33,6 +33,7 @@ import { AddservicePage } from '../pages/addservice/addservice';
 import { SelectSearchableModule } from 'ionic-select-searchable';
 import { ResetPage } from '../pages/reset/reset';
 import { ResetnextPage } from '../pages/resetnext/resetnext';
+
 // TabuserprofilePage
 import { TabuserprofilePage } from '../pages/tabuserprofile/tabuserprofile';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -46,7 +47,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     UserRegPage,
     PartnerRegPage,
     ListmainPage,
-    UserprofilePage,
+  
+
+
+
+
     AddservicePage,
     PastworkPage,
     TabuserprofilePage,
@@ -83,8 +88,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     UserRegPage,
     PartnerRegPage,
     ListmainPage,
-    UserprofilePage,
- 
     PastworkPage,
   
     LoginPage,
@@ -101,7 +104,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     OtpPage,
     AboutPage,
     ResetPage,
-    ResetnextPage
+    ResetnextPage,
+
   ],
   providers: [
     StatusBar,

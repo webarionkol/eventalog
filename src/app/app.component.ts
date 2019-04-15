@@ -15,17 +15,20 @@ import { LoginPage } from '../pages/login/login';
 export class MyApp {
   rootPage:any ;
   UserData : any;
-
+  accessToken: any;
   constructor(public toastCtrl:ToastController,public events:Events,public rest: ApiProvider,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
-      this.UserData=JSON.parse(localStorage.getItem('userdata'));
+     
      
       if(localStorage.getItem('userdata')){
+        this.UserData=JSON.parse(localStorage.getItem('userdata'));
+        this.accessToken = this.UserData.access_token;
+       
            if(this.UserData.userType=='U'){
                this.rootPage=SubcatagoryPage;
            }
            else{
-            this.rest.getUserByid(this.UserData.userId).subscribe(data=>{
+            this.rest.getUserByid(this.UserData.userId,this.accessToken).subscribe(data=>{
               console.log(data.productCategoryId)
               if(data.productCategoryId>0){
                  this.rootPage=TabsPage; 

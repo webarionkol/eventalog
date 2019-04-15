@@ -48,7 +48,7 @@ export class ProfilePage {
     this.token_type = this.UserData.token_type;
     this.userId = this.UserData.userId;
 
-    this.rest.getUserByid(this.userId).subscribe(data => {
+    this.rest.getUserByid(this.userId,this.accessToken).subscribe(data => {
       this.approveCheck=data.approvalStatusId
    
       if(data.approvalStatusId=="1"){
@@ -80,7 +80,7 @@ export class ProfilePage {
     });
 
     loading.present();
-    this.rest.getUserByid(this.userId).subscribe(res => {
+    this.rest.getUserByid(this.userId,this.accessToken).subscribe(res => {
       console.log(res)
       if (res.coverPicturePath) {
         this.cover = "http://" + res.coverPicturePath;
@@ -188,7 +188,7 @@ export class ProfilePage {
 
     console.log(JSON.stringify(data))
 
-    this.rest.approv(JSON.stringify(data)).subscribe(data => {
+    this.rest.approv(JSON.stringify(data),this.accessToken).subscribe(data => {
         console.log(data)
      
       let toast = this.toastCtrl.create({
@@ -222,7 +222,7 @@ sendapp(){
   let usr={
     "userId":this.UserData.userId
   }
-  this.rest.checkApproval((this.UserData.userId)).subscribe(data => {
+  this.rest.checkApproval(this.UserData.userId,this.accessToken).subscribe(data => {
     console.log(data)
     if (data.status == true) {
       this.payd();
@@ -258,7 +258,7 @@ sendapp(){
       var usre={
         "userId":this.UserData.userId
       }
-      this.rest.resendApprov(JSON.stringify(usre)).subscribe(data => {
+      this.rest.resendApprov(JSON.stringify(usre),this.accessToken).subscribe(data => {
         console.log(data)
 
         let toast = this.toastCtrl.create({
@@ -449,7 +449,7 @@ showConfirm() {
         handler: data => {
           if(data.Code){
             console.log(data.Code)
-            this.rest.coupun(data.Code).subscribe(data=>{
+            this.rest.coupun(data.Code,this.accessToken).subscribe(data=>{
               console.log(data)
             this.payAmmount=data.price;
               let toast = this.toastCtrl.create({

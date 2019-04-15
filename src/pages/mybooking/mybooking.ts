@@ -68,7 +68,7 @@ export class MybookingPage {
    }
 
    if(this.hire && this.sp && this.dateget && this.place){
-    this.rest.dairyInsert(JSON.stringify(data)).subscribe(data=>{
+    this.rest.dairyInsert(JSON.stringify(data),this.accessToken).subscribe(data=>{
       alert("Data saved successfully")
        this.sp="",
       this.dateget="",
@@ -93,7 +93,7 @@ export class MybookingPage {
     this.token_type = this.UserData.token_type;
     this.userId = this.UserData.userId;
 
-    this.rest.getUserByid(this.userId).subscribe(data => {
+    this.rest.getUserByid(this.userId,this.accessToken).subscribe(data => {
       this.approveCheck=data.approvalStatusId;
    
       if(data.approvalStatusId=="1"){
@@ -139,7 +139,7 @@ export class MybookingPage {
    }
 
    if(this.hire && this.sp && this.dateget && this.place){
-    this.rest.dairyUpdate(JSON.stringify(data)).subscribe(data=>{
+    this.rest.dairyUpdate(JSON.stringify(data),this.accessToken).subscribe(data=>{
       alert("Data saved successfully");
       this.idget='';
        this.sp="",

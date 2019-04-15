@@ -6,7 +6,18 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>scarchuser</ion-title>
+    <ion-title>My Booking</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showPrompt()">
+        <ion-icon name="ios-exit-outline"></ion-icon>
+
+      </button>
+    </ion-buttons>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="onClickCancel()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

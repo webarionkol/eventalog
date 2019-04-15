@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController, App } from 'ionic-angular';
 import { ListmainPage } from '../listmain/listmain';
 import { ApiProvider } from '../../providers/api/api';
 import { WelcomePage } from '../welcome/welcome';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the SubcatagoryPage page.
@@ -26,7 +27,8 @@ export class SubcatagoryPage {
   userId : any;
   filterItems : any;
   searchTerm : any;
-  constructor(public toastCtrl:ToastController,public loadingCtrl: LoadingController,public alertCtrl : AlertController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public app:App,public toastCtrl:ToastController,public loadingCtrl: LoadingController,public alertCtrl : AlertController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -71,7 +73,7 @@ export class SubcatagoryPage {
 
     loading.present();
     console.log(item)
-     this.rest.patnerWiseProduct(item.id).subscribe(Data=>{
+     this.rest.patnerWiseProduct(item.id,this.accessToken).subscribe(Data=>{
        console.log(Data)
         if(Data.length==0){
           let toast = this.toastCtrl.create({
@@ -108,7 +110,7 @@ export class SubcatagoryPage {
         {
           text: 'Yes',
           handler: data => {
-            this.navCtrl.setRoot(WelcomePage);
+            this.app.getRootNav().setRoot(LoginPage);
             localStorage.clear();
             console.log('Saved clicked');
           }

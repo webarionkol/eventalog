@@ -6,10 +6,33 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>notificationuser</ion-title>
+    <ion-title>Notification</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="showPrompt()">
+        <ion-icon name="ios-exit-outline"></ion-icon>
+
+      </button>
+    </ion-buttons>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="onClickCancel()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
 
-</ion-content>
+  <ion-content padding>
+    <ion-list>
+      <ion-item  (click)="Notification(item)">
+        <ion-avatar item-start>
+          <img src="assets/imgs/profile.jpg">
+        </ion-avatar>
+        <h2>New Booking</h2>
+        <p>Test Demo</p>
+        <p item-end>10.40am</p>
+    
+      </ion-item>
+    </ion-list>
+  </ion-content>
+

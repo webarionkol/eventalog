@@ -39,7 +39,7 @@ export class AddservicePage {
     this.userId = this.UserData.userId;
 
 
-    this.rest.getUserByid(this.userId).subscribe(data => {
+    this.rest.getUserByid(this.userId,this.accessToken).subscribe(data => {
       this.cname = data.name;
       this.cdesc = data.description;
       this.cwebsite = data.website;
@@ -52,7 +52,7 @@ export class AddservicePage {
       console.log(this.state)
     })
    
-      this.rest.StateGet().subscribe(data => {
+      this.rest.StateGet(this.accessToken).subscribe(data => {
         this.statearr = data;
          this.stateid=this.statearr[this.stateidapiget-1]
          this.city(this.stateid.id)
@@ -61,7 +61,7 @@ export class AddservicePage {
 
   }
  city(data){
-  this.rest.city(data).subscribe(data => {
+  this.rest.city(data,this.accessToken).subscribe(data => {
 
         this.cityarr = data;
         for(let f=0;f<this.cityarr.length;f++){
@@ -90,8 +90,8 @@ export class AddservicePage {
       "stateid": this.stateid,
     }
 
-    console.log(this.cityid.id)
-    this.rest.adddetiels(data).subscribe(data => {
+  
+    this.rest.adddetiels(data,this.accessToken).subscribe(data => {
       console.log(data)
 
     
@@ -122,7 +122,7 @@ export class AddservicePage {
       "stateid": this.stateid,
     }
     console.log(this.cityid.id)
-    this.rest.adddetiels(data).subscribe(data => {
+    this.rest.adddetiels(data,this.accessToken).subscribe(data => {
       console.log(data)
 
       loading.dismiss();
@@ -140,7 +140,7 @@ export class AddservicePage {
     this.cityarr=[];
     this.cityid="";
     console.log(this.stateid)
-    this.rest.city(event.value.id).subscribe(data => {
+    this.rest.city(event.value.id,this.accessToken).subscribe(data => {
       this.cityarr = data;
       console.log(data)
     })

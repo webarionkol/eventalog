@@ -34,7 +34,7 @@ export class PastworkPage {
 
   ionViewDidLoad() {
 
-    this.rest.pastWord(this.userId).subscribe(res=>{
+    this.rest.pastWord(this.userId,this.accessToken).subscribe(res=>{
       this.pastworklist=res;
       console.log(res)
     })
@@ -75,7 +75,7 @@ export class PastworkPage {
             position: 'bottom'
           });
           toast.present();
-          this.rest.pastWord(this.userId).subscribe(res=>{
+          this.rest.pastWord(this.userId,this.accessToken).subscribe(res=>{
             this.pastworklist=res;
             console.log(res)
           })

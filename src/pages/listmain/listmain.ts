@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { UserprofilePage } from '../userprofile/userprofile';
 import { ThrowStmt } from '@angular/compiler';
 import { UserTabPage } from '../user-tab/user-tab';
 import { TabuserprofilePage } from '../tabuserprofile/tabuserprofile';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ListmainPage page.
@@ -20,10 +21,10 @@ import { TabuserprofilePage } from '../tabuserprofile/tabuserprofile';
 export class ListmainPage {
   rate: any;
   dataget : any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams) {
   this.rate=4;
   this.dataget=this.navParams.get("data");
-  console.log(this.dataget)
+ 
   }
 
   ionViewDidLoad() {
@@ -32,4 +33,30 @@ export class ListmainPage {
   Next(item){
     this.navCtrl.push(TabuserprofilePage,{pass:item})
   }
+  showPrompt() {
+    const prompt = this.alertCtrl.create({
+      title: 'Alert',
+      message: "Do you want to logout?",
+
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.navCtrl.setRoot(LoginPage);
+         
+            localStorage.clear();
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
 }

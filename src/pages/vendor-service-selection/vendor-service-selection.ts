@@ -51,7 +51,7 @@ submit(){
   }]
 
   console.log(item[0])
-  this.rest.getServiceListSubmit(item).subscribe(data=>{
+  this.rest.getServiceListSubmit(item,this.accessToken).subscribe(data=>{
     console.log(data)
   })
   this.navCtrl.push(TabsPage)

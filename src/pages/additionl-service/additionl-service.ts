@@ -27,7 +27,7 @@ export class AdditionlServicePage {
     this.token_type = this.UserData.token_type;
     this.userId = this.UserData.userId;
     console.log(this.userId)
-    this.rest.patnerdiry(this.userId).subscribe(data=>{
+    this.rest.patnerdiry(this.userId,this.accessToken).subscribe(data=>{
       this.servicelist=data;
       console.log(data)
     })
@@ -37,7 +37,7 @@ export class AdditionlServicePage {
     console.log('ionViewDidLoad AdditionlServicePage');
   }
   onChange(item){
-    this.rest.patnerdirydate(this.userId,item).subscribe(data=>{
+    this.rest.patnerdirydate(this.userId,item,this.accessToken).subscribe(data=>{
       this.servicelist=data;
     })
 console.log(item)
