@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "697570126128",
+    "firebase_url": "https://eventalog-1554548454664.firebaseio.com",
+    "project_id": "eventalog-1554548454664",
+    "storage_bucket": "eventalog-1554548454664.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697570126128:android:f1663be124f14817",
+        "android_client_info": {
+          "package_name": "io.eventlog.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697570126128-urffub3ntlub8lt7bpng4b49snjn15ef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-uKjKm9-mke3jJwEj5N5NrpvBgCiPX_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697570126128-urffub3ntlub8lt7bpng4b49snjn15ef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

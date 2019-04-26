@@ -5,25 +5,32 @@ import { ToastController } from 'ionic-angular';
 import { ApiResponse, signupResponse, loginResponse, feedResponse} from '../../models/api.models';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
-
+import { AlertController, Events } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 /*
   Generated class for the ApiProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+export enum ConnectionStatusEnum {
+  Online,
+  Offline
+}
 @Injectable()  
 export class ApiProvider {
   apiUrl: any;    
-
+  previousStatus :any;
   usertoke: any;
   constructor(
-    public http: HttpClient,
+    public http: HttpClient, public alertCtrl: AlertController, 
+    public network: Network,
+    public eventCtrl: Events,
     public toastCtrl: ToastController) {  
     this.apiUrl = 'http://mobile.eventalog.com/';
 
-    
+    this.previousStatus = ConnectionStatusEnum.Online;
 
    
     
@@ -51,7 +58,15 @@ export class ApiProvider {
     });
     toast.present();
   }
-
+  showToastOffline() {
+    let toast = this.toastCtrl.create({
+      message: "Please check your internet connection and try again",
+      duration: 3000,   
+      position: "bottom",
+      // cssClass: 'toast-' + type
+    });
+    toast.present();
+  }
 
   token(data): Observable<any>{
     console.log(data)
@@ -89,9 +104,22 @@ export class ApiProvider {
       
      
     });
-    return this.http.get(this.apiUrl+'api/ProductCategory/GetAll',{headers});
+    return this.http.get(this.apiUrl+'api/ProductCategory/GetAll?$orderby=PartnerCount desc',{headers});
   }
-  
+  public initializeNetworkEvents(): void {
+    this.network.onDisconnect().subscribe(() => {
+        if (this.previousStatus === ConnectionStatusEnum.Online) {
+            this.eventCtrl.publish('network:offline');
+        }
+        this.previousStatus = ConnectionStatusEnum.Offline;
+    });
+    this.network.onConnect().subscribe(() => {
+        if (this.previousStatus === ConnectionStatusEnum.Offline) {
+            this.eventCtrl.publish('network:online');
+        }
+        this.previousStatus = ConnectionStatusEnum.Online;
+    });
+}
   getServiceListSubmit(data,token): Observable<any>  {
     let headers = new HttpHeaders({
       'Authorization':'bearer'+" "+token,  'Content-Type':'application/json',
@@ -376,5 +404,17 @@ coupun(data,token):Observable<any>{
 
   // APR1504OFFER
 }
+scarchdata(data,token):Observable<any>{
+  let headers = new HttpHeaders({
+    'Authorization':'bearer'+" "+token,    'Content-Type':'application/json',
+    
+   
+  });
+  return this.http.get(this.apiUrl+'/api/ProductCategory/GetByName/'+data,{headers});
+
+  // APR1504OFFER
+}
+
+// http://mobile.eventalog.com/api/ProductCategory/GetByName/abc
 }
 

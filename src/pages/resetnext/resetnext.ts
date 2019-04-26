@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { ApiProvider } from '../../providers/api/api';
 import { LoginPage } from '../login/login';
 import { WelcomePage } from '../welcome/welcome';
+import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the ResetnextPage page.
@@ -22,13 +23,14 @@ mobileNo: any;
 ConfirmPassword : any;
 Password : any;
 
-  constructor(public rest: ApiProvider,public toastCtrl:ToastController,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public network : Network,public rest: ApiProvider,public toastCtrl:ToastController,public navCtrl: NavController, public navParams: NavParams) {
   this.mobileNo=this.navParams.get('mobile')
   
   }
 
 
   submit(){
+    if(this.network.type!="none"){
     if(this.mobileNo && this.otp && this.ConfirmPassword && this.Password){
       if(this.Password==this.ConfirmPassword){
         let data={
@@ -48,7 +50,7 @@ Password : any;
           position: 'bottom'
         });
         toast.present();
-        this.navCtrl.setRoot(WelcomePage)
+        this.navCtrl.setRoot(LoginPage)
        }, error => {
         let toast = this.toastCtrl.create({
           message: 'Server Error pleash try again..',
@@ -56,7 +58,7 @@ Password : any;
           position: 'bottom'
         });
         toast.present();
-        this.navCtrl.setRoot(WelcomePage)
+        this.navCtrl.setRoot(LoginPage)
       },)
       }
       else{
@@ -77,7 +79,10 @@ Password : any;
       toast.present();
     }
  
- 
+  }
+  else{
+    
+  }
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ResetnextPage');

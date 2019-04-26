@@ -22,59 +22,61 @@
 </ion-header>
 
 <ion-content >
-  <img id="cover" src="http://{{coverpic}}" onError="this.src='assets/imgs/cover.png';">
+
+  <img id="cover" src="http://{{coverpic}}" onError="this.src='assets/imgs/cover.png';" (click)="click()">
  
  <div padding class="profileinfo">
    <ion-row>
      <ion-col col-8>
         <h5>{{name}}</h5>
-        <p>{{partnerDescription}}</p>
+        <!-- <p>{{partnerDescription}}</p> -->
+        
         <p>{{mobileNo}} </p>
+        <p>{{city}}, {{state}}</p>
+       
      </ion-col>
 
-     <ion-col col-4>
-        <!-- <rating [(ngModel)]="rate" 
-        readOnly="false" 
-        max="5" 
-        emptyStarIconName="star-outline" 
-        halfStarIconName="star-half" 
-        starIconName="star" 
-        nullable="false" 
-        (ngModelChange)="onModelChange($event)"></rating> -->
+     <ion-col >
+       
      </ion-col>
    </ion-row>
   
     
  </div> 
  <ion-row>
-   <ion-col col-3 text-center>
+   <ion-col col-2.4 text-center>
       <a href="tel:{{mobileNo}}" class="nodecor">
       <ion-icon ios="ios-call" md="md-call" color="primary"></ion-icon>
         <p>CALL</p>
         </a>
    </ion-col>
-   <ion-col col-3 text-center>
+   <ion-col col-2.4 text-center>
       <ion-icon name="ios-pin" color="primary"></ion-icon>
       <p>LOCATION</p>
    </ion-col>
   <ion-col col-3 text-center>
-      <a href="https://api.whatsapp.com/send?phone={{mobileNo}}">
+      <a href="https://api.whatsapp.com/send?phone=+91{{mobileNo}}">
       <ion-icon name="md-chatbubbles" color="primary"></ion-icon>
       <p>CHAT</p>
       </a>
   </ion-col>
-  <ion-col col-3 text-center (click)="share()">
+  <ion-col col-2.4 text-center (click)="share()">
       <ion-icon name="share" color="primary"></ion-icon>
       <p>SHARE</p>
   </ion-col>
+
+  <ion-col col-2.4 text-center (click)="calender()">
+      <ion-icon name="ios-calendar" color="primary"></ion-icon>
+      <p>Available Dates</p>
+  </ion-col>
  </ion-row>
  <div text-center>
-    <button ion-button color="primary" outline>ENQUIRE NOW</button>
+    <button ion-button class="button_SEND">ENQUIRE NOW</button>
  </div>
 
  <div class="gallery">
    <ion-row>
-      <ion-col col-4 no-padding *ngFor="let item of imagelist">
+      <ion-col col-4 no-padding *ngFor="let item of imagelist" (click)="imagView(item.imagePath)">
         <img src="http://{{item.imagePath}}" onError="this.src='assets/imgs/noimage.png';">
       </ion-col>
       
@@ -97,4 +99,5 @@
       </ion-item>
    </ion-col>
  </ion-row> -->
+
 </ion-content>

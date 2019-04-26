@@ -1,0 +1,48 @@
+page-scarchproduct {
+
+    .item-md{
+        border-bottom: 1px solid gray;
+        background: transparent;
+    }
+    .searchbar-md{
+        background: transparent;
+    }
+
+    .item-md.item-block .item-inner {
+        padding-right: 8px;
+        border-bottom: 1px solid #0e2874;
+    }
+    .label-md[stacked], .label-md[floating] {
+        color: #114188;
+    } 
+    .item-md {
+        padding-left: 16px;
+        padding-right: 0;
+        position: relative;
+        font-size: 1.6rem;
+        font-weight: normal;
+        text-transform: none;
+        color: #000;
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      
+    }
+
+   .button-md {
+        // margin:0px !important;
+        height: 4.9rem;
+        margin: 0px !important;
+    }
+    [col-10]{
+        height:4.9rem !important;
+    }
+    .input-cover{
+        height: 50px;
+    }
+    .text-input-md{
+        margin: 17px 8px;
+    }
+}

@@ -5,6 +5,11 @@ import { WelcomePage } from '../welcome/welcome';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { LoginPage } from '../login/login';
 import { SubcatagoryPage } from '../subcatagory/subcatagory';
+import { Network } from '@ionic-native/network';
+import { Calendar } from 'ionic3-calendar-en/src/calendar/calendar';
+import { CalenderPage } from '../calender/calender';
+import { HomePage } from '../home/home';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 /**
  * Generated class for the ProfileuserPage page.
  *
@@ -29,25 +34,32 @@ export class ProfileuserPage {
   id: number;
   UserData : any;
   accessToken : any;
-  constructor(public app:App,public viewCtrl: ViewController,public plat: Platform,public socialSharing:SocialSharing,public alertCtrl: AlertController,public rest:ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+  city : any;
+  state : any;
+  constructor(public photoViewer: PhotoViewer,public network:Network,public app:App,public viewCtrl: ViewController,public plat: Platform,public socialSharing:SocialSharing,public alertCtrl: AlertController,public rest:ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+    if(this.network.type!="none"){
+   
     this.UserData=JSON.parse(localStorage.getItem('userdata'));
      this.accessToken=this.UserData.access_token;
-
-    console.log('Passed params', navParams.data.userId);
-
 
     this.rest.getUserByid(navParams.data.userId,this.accessToken).subscribe(data=>{
       this.pass=data;
       this.coverpic=data.coverPicturePath;
       this.name=data.name
-      this.partnerDescription=data.partnerDescription;
+      this.partnerDescription=data.description;
       this.mobileNo=data.mobileNo;
+      this.city=data.city;
+      this.state=data.state;
       console.log(data)
     })
   this.rest.PartnerPastWork(navParams.data.userId,this.accessToken).subscribe(data=>{
     this.imagelist=data
   // console.log(data)
   })
+}
+else{
+  this.rest.showToastOffline();
+}
   }
 
   ionViewDidLoad() {
@@ -94,5 +106,14 @@ export class ProfileuserPage {
       this.socialSharing.share(" Please share  the service with all of your friends and family?", "Download Eventalog app now!", null , "http://eventalog.com/");
    });
   }
+  calender(){
+    this.navCtrl.push(HomePage)
+  }
+  imagView(item){
 
+    this.photoViewer.show('http://'+item);
+  }
+  click(){
+    this.photoViewer.show('http://'+this.coverpic);
+  }
 }

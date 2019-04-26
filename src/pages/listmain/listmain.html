@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>WEDDING LIST</ion-title>
+    <ion-title>{{headerName}}</ion-title>
     <ion-buttons right>
       <button ion-button icon-only (click)="showPrompt()">
         <ion-icon name="ios-exit-outline"></ion-icon>
@@ -18,14 +18,21 @@
 
 <ion-content padding>
 
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="scarchitem(searchTerm)"></ion-searchbar>
+   
+    <ion-item>
+      <ion-label>Scarch By Date </ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" ></ion-datetime>
+    </ion-item>
+   
+   
     <ion-list no-lines >
-        <ion-item *ngFor="let item of dataget" >
+        <ion-item *ngFor="let item of filterItems" >
           <ion-avatar item-start (click)="Next(item)">
-            <img src="http://{{item.profilePicturePath}}">
+            <img src="http://{{item.profilePicturePath}}" onError="this.src='assets/imgs/noimage.png';">
           </ion-avatar>
           <h2 (click)="Next(item)">{{item.name}}</h2>
-          <p (click)="Next(item)">{{item.state}}</p>
+          <p (click)="Next(item)">{{item.city}}, {{item.state}}</p>
             <rating [(ngModel)]="rate" 
           readOnly="false" 
           max="5" 
@@ -42,7 +49,7 @@
           </button>
          
           <button ion-button icon-only clear item-end>
-              <a href="https://api.whatsapp.com/send?phone={{item.mobileNo}}">
+              <a href="https://api.whatsapp.com/send?phone=+91{{item.mobileNo}}">
               <ion-icon name="ios-chatbubbles" color="light"></ion-icon>
               </a>
           </button>

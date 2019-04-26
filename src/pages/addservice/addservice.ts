@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, App, AlertController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
+import { Network } from '@ionic-native/network';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the AddservicePage page.
@@ -32,13 +34,13 @@ export class AddservicePage {
   stateidapiget : any;
   state : any;
   cityidapiget :any;
-  constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public rest: ApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl:AlertController,public app:App,public network:Network,public toastCtrl: ToastController, public loadingCtrl: LoadingController, public rest: ApiProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.UserData = JSON.parse(localStorage.getItem('userdata'));
     this.accessToken = this.UserData.access_token;
     this.token_type = this.UserData.token_type;
     this.userId = this.UserData.userId;
 
-
+    if(this.network.type!="none"){
     this.rest.getUserByid(this.userId,this.accessToken).subscribe(data => {
       this.cname = data.name;
       this.cdesc = data.description;
@@ -57,10 +59,14 @@ export class AddservicePage {
          this.stateid=this.statearr[this.stateidapiget-1]
          this.city(this.stateid.id)
       })
-
+    }
+    else{
+      this.rest.showToastOffline();
+    }
 
   }
  city(data){
+  if(this.network.type!="none"){
   this.rest.city(data,this.accessToken).subscribe(data => {
 
         this.cityarr = data;
@@ -70,12 +76,17 @@ export class AddservicePage {
           }
         }
       })
+    }   
+    else{
+      this.rest.showToastOffline();
+    }
  }
   ionViewDidLoad() {
  
     console.log('ionViewDidLoad AddservicePage');
   }
   update(){
+    if(this.network.type!="none"){
     if(this.stateid.id){
       this.stateid=this.stateid.id;
     }
@@ -103,8 +114,12 @@ export class AddservicePage {
       toast.present();
       this.navCtrl.pop()
     })
+  }else{
+    this.rest.showToastOffline();
+  }
   }
   send() {
+    if(this.network.type!="none"){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -135,7 +150,12 @@ export class AddservicePage {
       this.navCtrl.pop()
     })
   }
+  else{
+    this.rest.showToastOffline();
+  }
+  }
   stateSelete(event) {
+    if(this.network.type!="none"){
     // this.stateid = event.value.id;
     this.cityarr=[];
     this.cityid="";
@@ -144,5 +164,34 @@ export class AddservicePage {
       this.cityarr = data;
       console.log(data)
     })
+  }
+  else{
+    this.rest.showToastOffline();
+  }
+  }
+  showPrompt() {
+    const prompt = this.alertCtrl.create({
+      title: 'Alert',
+      message: "Do you want to logout?",
+
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.app.getRootNav().setRoot(LoginPage);
+            // this.navCtrl.setRoot(WelcomePage);
+            localStorage.clear();
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 }

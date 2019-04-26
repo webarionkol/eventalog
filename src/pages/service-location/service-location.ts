@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ToastController, App, AlertController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ApiProvider } from '../../providers/api/api';
+import { Network } from '@ionic-native/network';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ServiceLocationPage page.
@@ -21,8 +23,8 @@ export class ServiceLocationPage {
   token_type: any;
   id: any;
   userId: any;
-  constructor(public rest: ApiProvider, public toastCtrl: ToastController, public platform: Platform, private geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams) {
-
+  constructor(public alertCtrl:AlertController,public app: App,public network:Network,public rest: ApiProvider, public toastCtrl: ToastController, public platform: Platform, private geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams) {
+   
     this.UserData = JSON.parse(localStorage.getItem('userdata'));
     this.accessToken = this.UserData.access_token;
     this.token_type = this.UserData.token_type;
@@ -34,6 +36,7 @@ export class ServiceLocationPage {
     console.log('ionViewDidLoad ServiceLocationPage');
   }
   loc() {
+    if(this.network.type!="none"){
     this.platform.ready().then(() => {
 
       // get current position
@@ -69,9 +72,37 @@ export class ServiceLocationPage {
       watch.unsubscribe();
 
     });
+  }
+  else{
+    this.rest.showToastOffline();
+  }
 
   }
 
+ showPrompt() {
+    const prompt = this.alertCtrl.create({
+      title: 'Alert',
+      message: "Do you want to logout?",
 
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.app.getRootNav().setRoot(LoginPage);
+            // this.navCtrl.setRoot(WelcomePage);
+            localStorage.clear();
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
 
 }

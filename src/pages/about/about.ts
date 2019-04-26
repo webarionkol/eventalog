@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, AlertController, App } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
+import { Network } from '@ionic-native/network';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the AboutPage page.
@@ -20,19 +22,22 @@ export class AboutPage {
   token_type: any;
   userId : any;
   textin: any;
-  constructor(public toastCtrl:ToastController,public loadingCtrl: LoadingController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl:AlertController,public app:App,public network:Network,public toastCtrl:ToastController,public loadingCtrl: LoadingController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
     this.UserData=JSON.parse(localStorage.getItem('userdata'));
     this.accessToken=this.UserData.access_token;
     this.token_type=this.UserData.token_type;
     this.userId=this.UserData.userId;
-     
-    this.rest.getAbout(this.userId,this.accessToken).subscribe(data=>{
-      this.textin=data.about;
-      console.log(data)
-    })
+     if(this.network.type!="none"){
+      this.rest.getAbout(this.userId,this.accessToken).subscribe(data=>{
+        this.textin=data.about;
+        console.log(data)
+      })
+     }
+     else{
+  this.rest.showToastOffline();
+     }
 
-
-  
+   
 
   }
 
@@ -40,7 +45,7 @@ export class AboutPage {
     console.log('ionViewDidLoad AboutPage');
   }
   submit(){
-
+    if(this.network.type!="none"){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -63,6 +68,35 @@ export class AboutPage {
       this.navCtrl.pop();
     })
       
+  }
+  else{
+    this.rest.showToastOffline();
+  }
+  }
 
+  showPrompt() {
+    const prompt = this.alertCtrl.create({
+      title: 'Alert',
+      message: "Do you want to logout?",
+
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.app.getRootNav().setRoot(LoginPage);
+            // this.navCtrl.setRoot(WelcomePage);
+            localStorage.clear();
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 }

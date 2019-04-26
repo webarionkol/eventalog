@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ApiProvider } from '../../providers/api/api';
 import { OtpPage } from '../otp/otp';
+import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the PartnerRegPage page.
@@ -23,7 +24,7 @@ mobile:any = '';
 pass:any ='';
 cpass:any ='';
 dataArr:any=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api: ApiProvider,) {
+  constructor(public network:Network,public navCtrl: NavController, public navParams: NavParams, private api: ApiProvider,) {
   }
 
   ionViewDidLoad() {
@@ -33,6 +34,7 @@ dataArr:any=[];
     this.navCtrl.push(LoginPage)
   }
   registration(){
+    if(this.network.type!="none"){
     if(this.fname == '' || this.lname == ''){
       this.api.showToast('please fill all field', 'top', 'error');
     } else if(this.mobile.length != 10){
@@ -58,5 +60,9 @@ dataArr:any=[];
     })
     
   }
+}
+else{
+  this.api.showToastOffline();
+}
 }
 }

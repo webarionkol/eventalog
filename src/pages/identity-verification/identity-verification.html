@@ -6,7 +6,14 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title></ion-title>
+    <ion-title>DOCUMENTS
+      VERIFICATION</ion-title>
+    <ion-buttons right>
+        <button ion-button icon-only (click)="showPrompt()">
+          <ion-icon name="ios-exit-outline"></ion-icon>
+  
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -34,17 +41,17 @@
 
   <ion-row>
     <ion-col col-12 *ngFor="let item of docList" class="imageget">
-      <div class="container" *ngIf="item.isApproved=='0' && item.isRejected=='0'">
+      <div class="container" *ngIf="item.isApproved=='0' && item.isRejected=='0'" (click)="imagView(item.imagePath)">
         <img  src="http://{{item.imagePath}}">
         <ion-icon name="ios-copy" class="top-right-waiting"></ion-icon>
       </div>
 
-      <div class="container" *ngIf="item.isApproved=='0' && item.isRejected=='1'">
+      <div class="container" *ngIf="item.isApproved=='0' && item.isRejected=='1'" (click)="imagView(item.imagePath)">
         <img  src="http://{{item.imagePath}}">
         <ion-icon name="ios-copy" class="top-right-reg"></ion-icon>
         <p>{{item.rejectedResone}}</p>
       </div>
-      <div class="container" *ngIf="item.isApproved=='1' && item.isRejected=='0'">
+      <div class="container" *ngIf="item.isApproved=='1' && item.isRejected=='0'" (click)="imagView(item.imagePath)">
         <img  src="http://{{item.imagePath}}">
         <ion-icon name="ios-ribbon" class="top-right-app"></ion-icon>
       </div>

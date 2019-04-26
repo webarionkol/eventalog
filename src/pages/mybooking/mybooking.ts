@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { AdditionlServicePage } from '../additionl-service/additionl-service';
 import { ApiProvider } from '../../providers/api/api';
 import { SubcatagoryPage } from '../subcatagory/subcatagory';
+import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the MybookingPage page.
@@ -31,7 +32,7 @@ export class MybookingPage {
   buttontext : any;
   rejectedResone: any;
   check:boolean=false;
-  constructor(public loadingCtrl: LoadingController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public toastCtrl :ToastController,public network:Network,public loadingCtrl: LoadingController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
     this.UserData = JSON.parse(localStorage.getItem('userdata'));
     this.accessToken = this.UserData.access_token;
     this.token_type = this.UserData.token_type;
@@ -54,6 +55,7 @@ export class MybookingPage {
   
   }
   reset (){
+    if(this.network.type!="none"){
     const loader = this.loadingCtrl.create({
       content: "Please wait...",
       duration: 3000
@@ -69,7 +71,13 @@ export class MybookingPage {
 
    if(this.hire && this.sp && this.dateget && this.place){
     this.rest.dairyInsert(JSON.stringify(data),this.accessToken).subscribe(data=>{
-      alert("Data saved successfully")
+      let toast = this.toastCtrl.create({
+        message: 'Data saved successfully',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      // alert("Data saved successfully")
        this.sp="",
       this.dateget="",
       this.place="",
@@ -77,17 +85,33 @@ export class MybookingPage {
       this.hire=""
      loader.dismiss();
     } ,(err) => {
-      alert(JSON.stringify(err.error.message))
+      let toast = this.toastCtrl.create({
+        message: JSON.stringify(err.error.message),
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      // alert(JSON.stringify(err.error.message))
       loader.dismiss();
   })
    }
     else{
-      alert("all are mandatory fields")
+      let toast = this.toastCtrl.create({
+        message: "all are mandatory fields",
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      // alert("all are mandatory fields")
     }
+  }
+  else{
+    this.rest.showToastOffline();
+  }
   }
   ionViewDidLoad() {
 
-
+if(this.network.type!="none"){
     this.UserData = JSON.parse(localStorage.getItem('userdata'));
     this.accessToken = this.UserData.access_token;
     this.token_type = this.UserData.token_type;
@@ -119,11 +143,16 @@ export class MybookingPage {
     })
     console.log('ionViewDidLoad MybookingPage');
   }
+  else{
+    this.rest.showToastOffline();
+  }
+  }
   list(){
 
     this.navCtrl.push(AdditionlServicePage)
   }
   update(){
+    if(this.network.type!="none"){
     const loader = this.loadingCtrl.create({
       content: "Please wait...",
       duration: 3000
@@ -140,7 +169,13 @@ export class MybookingPage {
 
    if(this.hire && this.sp && this.dateget && this.place){
     this.rest.dairyUpdate(JSON.stringify(data),this.accessToken).subscribe(data=>{
-      alert("Data saved successfully");
+      let toast = this.toastCtrl.create({
+        message: "Data saved successfully",
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      // alert("Data saved successfully");
       this.idget='';
        this.sp="",
       this.dateget="",
@@ -150,15 +185,36 @@ export class MybookingPage {
 
      loader.dismiss();
     } ,(err) => {
-      alert(JSON.stringify(err.error.message))
+      let toast = this.toastCtrl.create({
+        message: JSON.stringify(err.error.message),
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      // alert(JSON.stringify(err.error.message))
       loader.dismiss();
   })
    }
     else{
-      alert("all are mandatory fields")
+      
+      let toast = this.toastCtrl.create({
+        message: "all are mandatory fields",
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
     }
   }
+  else{
+    this.rest.showToastOffline();
+  }
+  }
   SCARCH(){
+    if(this.network.type!="none"){
     this.navCtrl.push(SubcatagoryPage)
+    }
+    else{
+      this.rest.showToastOffline();
+    }
   }
 }

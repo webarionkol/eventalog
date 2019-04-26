@@ -4,6 +4,8 @@ import { ListmainPage } from '../listmain/listmain';
 import { ApiProvider } from '../../providers/api/api';
 import { WelcomePage } from '../welcome/welcome';
 import { LoginPage } from '../login/login';
+import { ScarchproductPage } from '../scarchproduct/scarchproduct';
+import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the SubcatagoryPage page.
@@ -18,7 +20,7 @@ import { LoginPage } from '../login/login';
   templateUrl: 'subcatagory.html',
 })
 export class SubcatagoryPage {
-
+  productcatid:any;
   UserData : any;
   accessToken: any;
   token_type : any;
@@ -27,8 +29,9 @@ export class SubcatagoryPage {
   userId : any;
   filterItems : any;
   searchTerm : any;
-
-  constructor(public app:App,public toastCtrl:ToastController,public loadingCtrl: LoadingController,public alertCtrl : AlertController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+  SearchValueCompontent : any;
+  constructor(public network:Network,public app:App,public toastCtrl:ToastController,public loadingCtrl: LoadingController,public alertCtrl : AlertController,public rest: ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+    if(this.network.type!="none"){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -62,11 +65,19 @@ export class SubcatagoryPage {
        // alert("failed to upload");
      }
       )
+    }
+    else{
+this.rest.showToastOffline();
+    }
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SubcatagoryPage');
   }
+ 
+
+
   next(item){
+    if(this.network.type!="none"){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -74,8 +85,8 @@ export class SubcatagoryPage {
     loading.present();
     console.log(item)
      this.rest.patnerWiseProduct(item.id,this.accessToken).subscribe(Data=>{
-       console.log(Data)
-        if(Data.length==0){
+       console.log(item.partnerCount)
+        if(item.partnerCount===0){
           let toast = this.toastCtrl.create({
             message: 'No data found',
             duration: 3000,
@@ -84,11 +95,15 @@ export class SubcatagoryPage {
           toast.present();
           loading.dismiss();
         }else{
-          this.navCtrl.push(ListmainPage,{data:Data})
+          this.navCtrl.push(ListmainPage,{data:Data,name:item.category})
           loading.dismiss();
         }
      
      })
+    }
+    else{
+      this.rest.showToastOffline();
+    }
      
   }
 
@@ -118,5 +133,9 @@ export class SubcatagoryPage {
       ]
     });
     prompt.present();
+  }
+  scarch(){
+
+    this.navCtrl.push(ScarchproductPage)
   }
 }

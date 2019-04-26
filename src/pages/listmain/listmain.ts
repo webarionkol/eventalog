@@ -21,9 +21,16 @@ import { LoginPage } from '../login/login';
 export class ListmainPage {
   rate: any;
   dataget : any;
+  filterItems : any;
+  headerName: any;
+  searchTerm : any;
   constructor(public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams) {
   this.rate=4;
+  this.headerName=this.navParams.get('name')
   this.dataget=this.navParams.get("data");
+  this.filterItems=this.dataget;
+
+  console.log(this.filterItems)
  
   }
 
@@ -57,6 +64,10 @@ export class ListmainPage {
       ]
     });
     prompt.present();
+  }
+  scarchitem(item) {
+    console.log(item)
+    this.filterItems = this.dataget.filter(item => (item.name).toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
   }
 
 }

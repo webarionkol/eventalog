@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { ApiProvider } from '../../providers/api/api';
 import { HomePage } from '../home/home';
 import { WelcomePage } from '../welcome/welcome';
+import { Network } from '@ionic-native/network';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the OtpPage page.
@@ -20,7 +22,7 @@ export class OtpPage {
 otp:any;
 registerArr: any=[];
 userData:any;
-  constructor(public navCtrl: NavController, public toastCtrl:ToastController, public navParams: NavParams,private api: ApiProvider) {
+  constructor(public network:Network,public navCtrl: NavController, public toastCtrl:ToastController, public navParams: NavParams,private api: ApiProvider) {
     this.userData = this.navParams.get('data');
     
 
@@ -30,6 +32,7 @@ userData:any;
     console.log('ionViewDidLoad OtpPage');
   }
   registration(){
+    if(this.network.type!="none"){
     this.registerArr ={
   "password": this.userData.password,
    "confirmPassword":  this.userData.confirmPassword,
@@ -76,7 +79,7 @@ userData:any;
           duration: 3000
         });
         toast.present();
-         this.navCtrl.setRoot(WelcomePage)
+         this.navCtrl.setRoot(LoginPage)
         },
         err => {
           const toast = this.toastCtrl.create({
@@ -88,9 +91,20 @@ userData:any;
         });
      }
    
-  
+    }
+    else{
+      this.api.showToastOffline();
+    }
   }
   resendotp(){
-    
+    this.api.RegistrationOTP(this.userData).subscribe(resp => {
+      const toast = this.toastCtrl.create({
+        message: "OTP send successfully",
+        duration: 3000
+      });
+      toast.present();
+  
+
+    })
   }
 }

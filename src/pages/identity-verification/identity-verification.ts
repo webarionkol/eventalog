@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController, App } from 'ionic-angular';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { ApiProvider } from '../../providers/api/api';
+import { Network } from '@ionic-native/network';
+import { LoginPage } from '../login/login';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 /**
  * Generated class for the IdentityVerificationPage page.
@@ -26,9 +29,9 @@ export class IdentityVerificationPage {
   CatId: any;
   ports : any;
   doctID: any;
-  docList : any;
+  docList : any=[];
   flag:boolean= false;
-  constructor(public rest: ApiProvider,public loadingCtrl:LoadingController,public toastCtrl:ToastController,public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
+  constructor(public photoViewer:PhotoViewer,public app:App,public alertCtrl:AlertController,public network:Network,public rest: ApiProvider,public loadingCtrl:LoadingController,public toastCtrl:ToastController,public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
     this.UserData = JSON.parse(localStorage.getItem('userdata'));
     this.accessToken = this.UserData.access_token;
     this.token_type = this.UserData.token_type;
@@ -36,6 +39,8 @@ export class IdentityVerificationPage {
   }
 
   ionViewDidLoad() {
+
+    if(this.network.type!="none"){
     console.log("HI")
     this.rest.patnerDoc(this.accessToken).subscribe(data=>{
       this.ports=data;
@@ -48,7 +53,12 @@ export class IdentityVerificationPage {
     })
     console.log('ionViewDidLoad IdentityVerificationPage');
   }
+  else{
+    this.rest.showToastOffline();
+  }
+  }
   public uploadFile(event) {
+    if(this.network.type!="none"){
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -69,6 +79,7 @@ export class IdentityVerificationPage {
       .subscribe(
         data => {
           this.image = 'http://' + data['url']
+          // this.docList.push(...this.image)
           console.log(this.image)
           loading.dismiss();
           let toast = this.toastCtrl.create({
@@ -78,20 +89,30 @@ export class IdentityVerificationPage {
           });
           toast.present();
         ///dddd
-       
-       
+             
           this.rest.PartnerDocumentByid(this.userId,this.accessToken).subscribe(data=>{
             this.docList=data;
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            console.log(this.docList)
+            // this.navCtrl.setRoot(this.navCtrl.getActive().component);
            })
 
            
         },
         error => {
           loading.dismiss();
-          alert("failed to upload");
+          let toast = this.toastCtrl.create({
+            message: 'failed to upload image',
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
+          // alert("failed to upload");
         }
       )
+    }
+    else{
+      this.rest.showToastOffline();
+    }
   }
 
  
@@ -99,5 +120,34 @@ export class IdentityVerificationPage {
     this.doctID=item.value.id;
     
     console.log(item.value.documentTypeName)
+  }
+  showPrompt() {
+    const prompt = this.alertCtrl.create({
+      title: 'Alert',
+      message: "Do you want to logout?",
+
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.app.getRootNav().setRoot(LoginPage);
+            // this.navCtrl.setRoot(WelcomePage);
+            localStorage.clear();
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  imagView(item){
+
+    this.photoViewer.show('http://'+item);
   }
 }

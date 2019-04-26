@@ -6,6 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { ResetPage } from '../reset/reset';
 import { SubcatagoryPage } from '../subcatagory/subcatagory';
 import { WelcomePage } from '../welcome/welcome';
+import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the LoginPage page.
@@ -23,7 +24,7 @@ export class LoginPage {
   mobile: any;
   password: any;
   loginarr: any = [];
-  constructor(public toastCtrl:ToastController,public loadingCtrl: LoadingController, public rest: ApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public network:Network,public toastCtrl:ToastController,public loadingCtrl: LoadingController, public rest: ApiProvider, public navCtrl: NavController, public navParams: NavParams) {
 
 
   }
@@ -34,6 +35,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
   login() {
+    if(this.network.type!="none"){
 
     if(this.mobile && this.password){
       let loading = this.loadingCtrl.create({
@@ -120,6 +122,10 @@ export class LoginPage {
       toast.present();
     
     }
+  }
+  else{
+    this.rest.showToastOffline();
+  }
     
 }
 newacc(){

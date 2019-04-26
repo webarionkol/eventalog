@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Available products</ion-title>
     <ion-buttons right>
       <button ion-button icon-only (click)="showPrompt()">
         <ion-icon name="ios-exit-outline"></ion-icon>
@@ -17,7 +17,11 @@
 </ion-header>
 
 <ion-content >
-    <ion-searchbar placeholder="Service Scarch" [(ngModel)]="searchTerm" (ionInput)="filterItems1()"></ion-searchbar>
+    
+<div (click)=scarch()>
+    <ion-searchbar></ion-searchbar>
+</div>
+   
     <!-- <ion-item>
       <ion-label>Date Scarch</ion-label>
       <ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="YYYY-MM-DD" [(ngModel)]="downDate" (ionChange)="onChange(downDate)"></ion-datetime>
@@ -28,7 +32,7 @@
         <img src="assets/imgs/dj.png">
       </ion-thumbnail> -->
       <h2>{{item.category}}</h2>
-      <p style="color:rgb(47, 43, 87)">Registed Service Provider {{item.partnerCount}}</p>
+      <p style="color:rgb(47, 43, 87)">Registed Service Provider: {{item.partnerCount}}</p>
       <button ion-button icon-only clear item-end>
         <ion-icon name="ios-arrow-forward-outline" color="dark"></ion-icon>
       </button>

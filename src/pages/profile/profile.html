@@ -35,17 +35,17 @@
       <!-- <button class="btn"> <ion-icon name="add-circle"></ion-icon></button> -->
       <input type="file" name="myfile" style="height:100px" (change)="uploadFile($event)" />
       <!-- <img src="assets/imgs/pencil-edit-button.svg"/>  -->
-     
-     <div text-center class="dataget">
-      <p >{{name}}</p>
-      <p>{{mobileNo}}</p>
-     </div>
-   
-
+    
     </div>
 
 
   </div>
+  <div class="dataget">
+    <p text-center>{{name}}</p>
+    <p>({{ServiceName}})</p>
+    <p>{{mobileNo}}</p>
+    <!-- <p ><b>{{ServiceName}}</b></p> -->
+   </div>
   <div class="main-section">
     <button ion-button full class="button_wel" (click)="identityVerification()"><span class="spn">1</span>DOCUMENTS
       VERIFICATION

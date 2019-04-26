@@ -20,10 +20,11 @@ import { IdentityVerificationPage } from '../pages/identity-verification/identit
 import { AdditionlServicePage } from '../pages/additionl-service/additionl-service';
 import { ServiceLocationPage } from '../pages/service-location/service-location';
 import { ListmainPage } from '../pages/listmain/listmain';
-
+import { Network } from '@ionic-native/network';
 import { AboutPage } from '../pages/about/about';
 import { Geolocation } from '@ionic-native/geolocation';
 import { OtpPage } from '../pages/otp/otp';
+import { ScarchproductPage } from '../pages/scarchproduct/scarchproduct';
 
 // Import ionic2-rating module
 import { Ionic2RatingModule } from 'ionic2-rating';
@@ -36,6 +37,9 @@ import { ResetnextPage } from '../pages/resetnext/resetnext';
 
 // TabuserprofilePage
 import { TabuserprofilePage } from '../pages/tabuserprofile/tabuserprofile';
+import { CalenderPage } from '../pages/calender/calender';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { OneSignal } from '@ionic-native/onesignal';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
@@ -47,9 +51,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     UserRegPage,
     PartnerRegPage,
     ListmainPage,
-  
-
-
+    
+    CalenderPage,
+    ScarchproductPage,
 
 
     AddservicePage,
@@ -75,6 +79,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     BrowserModule,
     SelectSearchableModule,
     Ionic2RatingModule,
+
+  
     HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
@@ -84,12 +90,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     MyApp,
     AddservicePage,
     HomePage,
+    CalenderPage,
     WelcomePage,
     UserRegPage,
     PartnerRegPage,
     ListmainPage,
     PastworkPage,
-  
+   
+    ScarchproductPage,
     LoginPage,
     VendorServiceSelectionPage,
     TabsPage,
@@ -112,7 +120,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     Geolocation,
     SplashScreen,
     SocialSharing,
+    Network,
     ApiProvider,
+    PhotoViewer,
+    OneSignal,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

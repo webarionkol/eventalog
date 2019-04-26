@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+ 
+    <!-- Search Bar -->
+ 
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+
+    <ion-card>
+        <ion-row>
+          <ion-col col-10 no-padding>
+            <ion-input type="text" placeholder="Enter Service name" (ionChange)="runTimeChange($event)" [(ngModel)]="SearchValueCompontent"></ion-input>
+          </ion-col>
+          <ion-col col-2 text-right (click)="getComponent(SearchValue)" no-padding class="brk">
+            <button ion-button icon-only  color="dark" >
+              <ion-icon name="search"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+    <ion-list>
+        <ion-item *ngFor="let item of filterItems" (click)="next(item)" no-lines>
+        
+          <h2>{{item.category}}</h2>
+          <p style="color:rgb(47, 43, 87)">Registed Service Provider {{item.partnerCount}}</p>
+          <button ion-button icon-only clear item-end>
+            <ion-icon name="ios-arrow-forward-outline" color="dark"></ion-icon>
+          </button>
+        </ion-item>
+    
+      </ion-list>
+</ion-content>

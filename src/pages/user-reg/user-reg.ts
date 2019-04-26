@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { SubcatagoryPage } from '../subcatagory/subcatagory';
 import { ApiProvider } from '../../providers/api/api';
 import { OtpPage } from '../otp/otp';
+import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the UserRegPage page.
@@ -25,19 +26,19 @@ export class UserRegPage {
   cpass : any;
   dataArr : any=[];
 
-  constructor(public toastCtrl:ToastController,public api : ApiProvider,public rest:ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public network:Network,public toastCtrl:ToastController,public api : ApiProvider,public rest:ApiProvider,public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserRegPage');
   }
   registration(){
+    if(this.network.type!="none"){
     this.user={
       "password": this.pass,
       "confirmPassword": this.cpass,
       "firstName": this.fname,
       "lastName": this.cpass,
-     
       "mobileNo": this.mobile,
       "deviceId": "string",
       "deviceType": "string",
@@ -61,7 +62,11 @@ export class UserRegPage {
 
    this.api.RegistrationOTP(this.dataArr).subscribe(resp => {
    
-  
+    const toast = this.toastCtrl.create({
+      message: "OTP send successfully",
+      duration: 3000
+    });
+    toast.present();
       this.navCtrl.push(OtpPage,{
         data:this.dataArr,page:"User"
       })
@@ -74,7 +79,10 @@ export class UserRegPage {
       toast.present();
     
     }
+  }
+  else{
 
-  //  this.navCtrl.push(OtpPage,{data:this.user})
+  }
+
   }
 }

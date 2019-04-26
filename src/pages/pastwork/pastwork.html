@@ -7,6 +7,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Past Work</ion-title>
+    <ion-buttons right>
+        <button ion-button icon-only (click)="showPrompt()">
+          <ion-icon name="ios-exit-outline"></ion-icon>
+  
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -33,7 +39,7 @@
 
   <!-- <input type="file" (change)="uploadFile($event)" class="custom-file-input"> -->
   <ion-row>
-    <ion-col col-4 *ngFor="let item of pastworklist">
+    <ion-col col-4 *ngFor="let item of pastworklist" (click)="imagView(item.imagePath)">
         
           <img src="http://{{item.imagePath}}">
           <!-- <ion-icon name="ios-copy" class="top-right-waiting" *ngIf="item.isApproved=='0' && item.isRejected=='0'"></ion-icon>

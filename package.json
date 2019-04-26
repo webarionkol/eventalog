@@ -22,10 +22,14 @@
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/core": "~4.18.0",
     "@ionic-native/geolocation": "^4.20.0",
+    "@ionic-native/network": "^4.20.0",
+    "@ionic-native/onesignal": "^4.20.0",
+    "@ionic-native/photo-viewer": "^4.20.0",
     "@ionic-native/social-sharing": "^4.20.0",
     "@ionic-native/splash-screen": "~4.18.0",
     "@ionic-native/status-bar": "~4.18.0",
     "@ionic/storage": "2.2.0",
+    "com-sarriaroman-photoviewer": "1.2.1",
     "com.razorpay.cordova": "1.4.3",
     "cordova-android": "7.1.4",
     "cordova-browser": "6.0.0",
@@ -43,6 +47,7 @@
     "ionic-select-searchable": "^2.10.0",
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
+    "onesignal-cordova-plugin": "2.4.6",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.29"
@@ -69,11 +74,13 @@
       "com.razorpay.cordova": {},
       "cordova-plugin-x-socialsharing": {
         "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
-      }
+      },
+      "com-sarriaroman-photoviewer": {},
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
